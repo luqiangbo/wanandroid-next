@@ -1,16 +1,15 @@
 'use strict';
+
 const express = require('express');
-const dayjs = require('dayjs');
 
 // Constants
 const PORT = 8080;
-const HOST = 'localhost';
+const HOST = '0.0.0.0';
 
 // App
 const app = express();
 app.get('/', (req, res) => {
-  const time = dayjs().format('YYYY-MM-DD hh:mm:ss SSS');
-  res.send(`web : ${time}`);
+  res.send('web01');
 });
 
 app.listen(PORT, HOST);
