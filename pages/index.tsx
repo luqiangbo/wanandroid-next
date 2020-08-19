@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { Button } from 'antd';
 
-const PageIndex = ({ allPostsData }) => {
+const PageIndex = () => {
   return (
     <>
       <div className="main">hello next2020</div>

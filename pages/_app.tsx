@@ -1,6 +1,6 @@
 import React from 'react';
-import '../styles/global.less';
 import 'antd/dist/antd.css';
+import '../styles/global.less';
 import { ConfigProvider } from 'antd';
 
 // https://github.com/ant-design/ant-design/issues/18336
@@ -11,7 +11,6 @@ import zhCN from 'antd/lib/locale/zh_CN';
 const globalConfig = {
   locale: zhCN,
 };
-
 export default function App({ Component, pageProps }) {
   return (
     <ConfigProvider {...globalConfig}>
