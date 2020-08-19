@@ -1,12 +1,21 @@
 FROM node:12
-# 该目录作为主要工作区
+
+ENV PORT 3000
+
+# Create app directory
+RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
-# 拷贝并运行npm install
-COPY package*.json ./
+
+# Installing dependencies
+COPY package*.json /usr/src/app/
 RUN npm install
-# node_modules准备就绪 复制代码放入docker容器目录中
-COPY . .
+
+# Copying source files
+COPY . /usr/src/app
+
+# Building app
 RUN npm run build
-# 公开端口8080
-EXPOSE 8080
-CMD [ "npm", "run",'start' ]
+EXPOSE 3000
+
+# Running the app
+CMD "npm" "start"
