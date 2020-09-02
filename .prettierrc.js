@@ -8,4 +8,5 @@ module.exports = {
   bracketSpacing: true, // 空格
   arrowParens: 'always', // [avoid:不加 , always:加] 函数 一个参数加括号
   htmlWhitespaceSensitivity: 'ignore',
+  endOfLine: 'auto',
 };

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { apiList } from '../../api/shop';
+// import { apiList } from '../../api/shop';
 
 const PageIndex = (props) => {
   const [data, setData] = useState(0);
@@ -24,14 +24,14 @@ const PageIndex = (props) => {
     </>
   );
 };
-export async function getServerSideProps(context) {
-  const [err1, res1] = await apiList(1);
-  if (err1) return;
-  return {
-    props: {
-      listPro: [...res1.list],
-    },
-  };
-}
+// export async function getServerSideProps(context) {
+//   // const [err1, res1] = await apiList(1);
+//   if (err1) return;
+//   return {
+//     props: {
+//       listPro: [...res1.list],
+//     },
+//   };
+// }
 
 export default PageIndex;
