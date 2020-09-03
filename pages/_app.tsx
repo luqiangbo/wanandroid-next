@@ -1,6 +1,6 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-import 'styles/global.less';
+import 'styles/global.scss';
 import { ConfigProvider } from 'antd';
 
 // https://github.com/ant-design/ant-design/issues/18336

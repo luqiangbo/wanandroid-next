@@ -1,0 +1,30 @@
+body {
+  background-color: #f4f5f5;
+}
+.container {
+  position: relative;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 960px;
+}
+.pt10 {
+  padding-top: 10px;
+}
+.pb10 {
+  padding-bottom: 10px;
+}
+.pl20 {
+  padding-left: 20px;
+}
+.mb20 {
+  margin-bottom: 20px;
+}
+.index-banner {
+  width: 600px;
+  height: 333px;
+  overflow: hidden;
+  margin: 0 auto;
+  img {
+    width: 100%;
+  }
+}

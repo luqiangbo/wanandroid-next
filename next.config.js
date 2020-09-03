@@ -2,7 +2,7 @@ module.exports = {
   env: {
     customKey: 'my-value',
   },
-  basePath: '/docs',
+  // basePath: '/abc',
   async headers() {
     return [
       {
