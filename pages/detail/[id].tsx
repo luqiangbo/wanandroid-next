@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { Divider } from 'antd';
 
 export default function Detail() {
   const router = useRouter();
@@ -17,5 +18,10 @@ export default function Detail() {
           console.log(err);
         });
   }, [id]);
-  return 'detail';
+  //
+  return (
+    <div>
+      <div>123</div>
+    </div>
+  );
 }

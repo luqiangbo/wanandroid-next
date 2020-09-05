@@ -1,15 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import axios from 'axios';
 import { Row, Col, Card, Menu, Button, message, Carousel } from 'antd';
-//
-import { getBanner } from 'fetch/shop';
 const { SubMenu } = Menu;
-const PageIndex = ({ data, banner, listUser }) => {
-  const [current, setCurrent] = useState('1');
-  function onMenu(e) {
+//
+import { to } from 'util/index';
+//
+const PageIndex = () => {
+  const [current, setCurrent] = useState('1'); // nav
+  const [banner, setBanner] = useState([]); // banner
+  const [works, setWorks] = useState([]); // banner
+  const onMenu = (e) => {
     setCurrent((t) => e.key);
-  }
-
+  };
+  //
+  useEffect(() => {
+    const doapi = async () => {
+      const [err, res] = await to(axios.get(`/api/index`));
+      setBanner(res.data);
+      setWorks([
+        { id: 1, name: 'dfsdfldsf' },
+        { id: 2, name: 'dfsf' },
+        { id: 3, name: 'dfldsf' },
+      ]);
+    };
+    doapi();
+  }, []);
+  //
   return (
     <>
       <div className="container">
@@ -30,9 +47,8 @@ const PageIndex = ({ data, banner, listUser }) => {
             <Card className="card-p0 mb20">
               <div className="index-banner">
                 <Carousel autoplay adaptiveHeight={true}>
-                  {banner &&
-                    banner.list.length &&
-                    banner.list.map((t, i) => {
+                  {banner.length &&
+                    banner.map((t, i) => {
                       return (
                         <div key={i}>
                           <img src={t.imagePath} alt="" />
@@ -43,13 +59,14 @@ const PageIndex = ({ data, banner, listUser }) => {
               </div>
             </Card>
             <Card className="card-p0">
-              {listUser.map((t) => (
-                <div key={t.id} className="cp">
-                  <Link href={`/detail/${t.id}`}>
-                    <span>{t.name}</span>
-                  </Link>
-                </div>
-              ))}
+              {works.length &&
+                works.map((t) => (
+                  <div key={t.id} className="cp">
+                    <Link href={`/detail/${t.id}`}>
+                      <span>{t.name}</span>
+                    </Link>
+                  </div>
+                ))}
               <div></div>
             </Card>
           </Col>
@@ -79,40 +96,23 @@ const PageIndex = ({ data, banner, listUser }) => {
   );
 };
 
-export async function getServerSideProps() {
-  const isBrowser = process.browser;
-  const [err, res] = await getBanner();
-  // console.log(res);
-  if (err) {
-    if (isBrowser) {
-      message.error('err');
-    }
-    return {
-      props: {
-        data: 'err',
-        listUser: [],
-        banner: {
-          list: [],
-        },
-      },
-    };
-  }
-  if (isBrowser) {
-    message.success('成功');
-  }
-  return {
-    props: {
-      data: '123',
-      listUser: [
-        { id: 1, name: 'dfsdfldsf' },
-        { id: 2, name: 'dfsf' },
-        { id: 3, name: 'dfldsf' },
-      ],
-      banner: {
-        list: res,
-      },
-    },
-  };
-}
+// export async function getServerSideProps() {
+//   // const isBrowser = process.browser;
+//   // console.log(res);
+//   console.log('pageindex');
+//   return {
+//     props: {
+//       data: '123',
+//       listUser: [
+//         { id: 1, name: 'dfsdfldsf' },
+//         { id: 2, name: 'dfsf' },
+//         { id: 3, name: 'dfldsf' },
+//       ],
+//       banner: {
+//         list: [],
+//       },
+//     },
+//   };
+// }
 
 export default PageIndex;
