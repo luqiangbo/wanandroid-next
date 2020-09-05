@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { Row, Col, Card, Menu, Button, message, Carousel } from 'antd';
-
-import { getBanner } from 'api/shop';
+//
+import { getBanner } from 'fetch/shop';
 const { SubMenu } = Menu;
-const PageIndex = ({ data, banner }) => {
+const PageIndex = ({ data, banner, listUser }) => {
   const [current, setCurrent] = useState('1');
   function onMenu(e) {
     setCurrent((t) => e.key);
   }
+
   return (
     <>
       <div className="container">
@@ -26,7 +27,7 @@ const PageIndex = ({ data, banner }) => {
         </div>
         <Row>
           <Col xs={24} sm={16} className="mb20">
-            <Card>
+            <Card className="card-p0 mb20">
               <div className="index-banner">
                 <Carousel autoplay adaptiveHeight={true}>
                   {banner &&
@@ -41,36 +42,39 @@ const PageIndex = ({ data, banner }) => {
                 </Carousel>
               </div>
             </Card>
+            <Card className="card-p0">
+              {listUser.map((t) => (
+                <div key={t.id} className="cp">
+                  <Link href={`/detail/${t.id}`}>
+                    <span>{t.name}</span>
+                  </Link>
+                </div>
+              ))}
+              <div></div>
+            </Card>
           </Col>
           <Col xs={24} sm={8}>
             <div className="pl20">
-              <Card className="mb20 ">
-                <ul>
-                  <li>123</li>
-                  <li>123</li>
-                  <li>123</li>
-                  <li>123</li>
-                </ul>
+              <Card className="mb20 card-p10">
+                <div>
+                  <div>123</div>
+                  <div>123</div>
+                  <div>123</div>
+                  <div>123</div>
+                </div>
               </Card>
-              <Card>
-                <ul>
-                  <li>123</li>
-                  <li>123</li>
-                  <li>123</li>
-                  <li>123</li>
-                </ul>
+              <Card className="mb20 card-p10">
+                <div>
+                  <div>123</div>
+                  <div>123</div>
+                  <div>123</div>
+                  <div>123</div>
+                </div>
               </Card>
             </div>
           </Col>
         </Row>
       </div>
-      ,<div className="main">hello next 2020-08-20 01:38</div>
-      <div>{data}</div>
-      <Button>
-        <Link href="/a">
-          <a>go t o a</a>
-        </Link>
-      </Button>
     </>
   );
 };
@@ -78,7 +82,7 @@ const PageIndex = ({ data, banner }) => {
 export async function getServerSideProps() {
   const isBrowser = process.browser;
   const [err, res] = await getBanner();
-  console.log(res);
+  // console.log(res);
   if (err) {
     if (isBrowser) {
       message.error('err');
@@ -86,6 +90,7 @@ export async function getServerSideProps() {
     return {
       props: {
         data: 'err',
+        listUser: [],
         banner: {
           list: [],
         },
@@ -98,6 +103,11 @@ export async function getServerSideProps() {
   return {
     props: {
       data: '123',
+      listUser: [
+        { id: 1, name: 'dfsdfldsf' },
+        { id: 2, name: 'dfsf' },
+        { id: 3, name: 'dfldsf' },
+      ],
       banner: {
         list: res,
       },

@@ -2,19 +2,13 @@ import axios from 'axios'; // 引入axios
 import QS from 'qs';
 import { message } from 'antd';
 
+import { to } from 'util/index';
+
 const query = axios.create({
   baseURL: 'https://www.wanandroid.com/',
   timeout: 1000,
   headers: { 'X-Custom-Header': 'foobar' },
 });
-
-const to = (promise) => {
-  return promise
-    .then((data) => {
-      return [null, data];
-    })
-    .catch((err) => [err, null]);
-};
 
 query.interceptors.response.use(
   (response) => {
@@ -48,6 +42,19 @@ export const get = (url, params = {}) => {
         });
     }),
   );
+};
+//
+export const gets = (url, params = {}) => {
+  return new Promise((resolve, reject) => {
+    query
+      .get(url, { params })
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
 };
 // post
 export const post = (url, params = {}) => {
