@@ -5,8 +5,9 @@ import { Row, Col, Card, Menu, Button, message, Carousel } from 'antd';
 const { SubMenu } = Menu;
 //
 import { to } from 'util/index';
+import { server } from 'config/index';
 //
-const PageIndex = () => {
+const PageIndex = (props) => {
   const [current, setCurrent] = useState('1'); // nav
   const [banner, setBanner] = useState([]); // banner
   const [works, setWorks] = useState([]); // banner
@@ -14,18 +15,18 @@ const PageIndex = () => {
     setCurrent((t) => e.key);
   };
   //
-  useEffect(() => {
-    const doapi = async () => {
-      const [err, res] = await to(axios.get(`/api/index`));
-      setBanner(res.data);
-      setWorks([
-        { id: 1, name: 'dfsdfldsf' },
-        { id: 2, name: 'dfsf' },
-        { id: 3, name: 'dfldsf' },
-      ]);
-    };
-    doapi();
-  }, []);
+  // useEffect(() => {
+  //   const doapi = async () => {
+  //     const [err, res] = await to(axios.get(`/api/index`));
+  //     setBanner(res.data);
+  //     setWorks([
+  //       { id: 1, name: 'dfsdfldsf' },
+  //       { id: 2, name: 'dfsf' },
+  //       { id: 3, name: 'dfldsf' },
+  //     ]);
+  //   };
+  //   doapi();
+  // }, []);
   //
   return (
     <>
@@ -47,8 +48,8 @@ const PageIndex = () => {
             <Card className="card-p0 mb20">
               <div className="index-banner">
                 <Carousel autoplay adaptiveHeight={true}>
-                  {banner.length &&
-                    banner.map((t, i) => {
+                  {props.banner.length &&
+                    props.banner.map((t, i) => {
                       return (
                         <div key={i}>
                           <img src={t.imagePath} alt="" />
@@ -59,8 +60,8 @@ const PageIndex = () => {
               </div>
             </Card>
             <Card className="card-p0">
-              {works.length &&
-                works.map((t) => (
+              {props.works.length &&
+                props.works.map((t) => (
                   <div key={t.id} className="cp">
                     <Link href={`/detail/${t.id}`}>
                       <span>{t.name}</span>
@@ -96,23 +97,23 @@ const PageIndex = () => {
   );
 };
 
-// export async function getServerSideProps() {
-//   // const isBrowser = process.browser;
-//   // console.log(res);
-//   console.log('pageindex');
-//   return {
-//     props: {
-//       data: '123',
-//       listUser: [
-//         { id: 1, name: 'dfsdfldsf' },
-//         { id: 2, name: 'dfsf' },
-//         { id: 3, name: 'dfldsf' },
-//       ],
-//       banner: {
-//         list: [],
-//       },
-//     },
-//   };
-// }
+export async function getServerSideProps(context) {
+  // const isBrowser = process.browser;
+  // console.log(res);
+  const res = await fetch(`${server}/api/index`);
+  const data = await res.json();
+  return {
+    props: {
+      data: '123',
+      works: [
+        { id: 1, name: 'dfsdfldsf' },
+        { id: 2, name: 'dfsf' },
+        { id: 3, name: 'dfldsf' },
+      ],
+      banner: data || [],
+      // banner: res.data,
+    },
+  };
+}
 
 export default PageIndex;
