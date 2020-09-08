@@ -1,42 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Row, Col, Card, Menu, Button, message, Carousel } from 'antd';
+import { Row, Col, Card, Menu } from 'antd';
+import { debounce } from 'lodash';
 const { SubMenu } = Menu;
 //
 import styles from './index.module.scss';
 import { getApi } from 'util/req';
+import { getToBottom } from 'util/index';
 import { server } from 'config/index';
+import Entry from 'component/Entry';
+import Banner from 'component/Banner';
 //
 const PageIndex = ({ works, banner }) => {
+  const apiArticle = async () => {
+    const [err, res] = await getApi(`${server}/api/index/entry`, { page: '456' });
+    console.log(err, res);
+  };
+  const onScroll = () => {
+    const toBottom = getToBottom();
+    if (3 < toBottom && toBottom < 10) {
+      console.log(toBottom);
+      apiArticle();
+    }
+  };
+  useEffect(() => {
+    window.addEventListener('scroll', debounce(onScroll, 2000));
+    return () => {
+      window.addEventListener('scroll', debounce(onScroll, 2000));
+    };
+  }, []);
   return (
     <>
       <div className="container">
         <Row>
           <Col xs={24} sm={16} className="mb20">
-            <Card className="card-p0 mb20">
-              <div className={styles.banner}>
-                <Carousel autoplay adaptiveHeight={true}>
-                  {banner.length &&
-                    banner.map((t, i) => {
-                      return (
-                        <div key={i}>
-                          <img src={t.imagePath} alt="" />
-                        </div>
-                      );
-                    })}
-                </Carousel>
-              </div>
-            </Card>
-            <Card className="card-p0">
-              {works.datas.map((t) => (
-                <div key={t.id} className="cp">
-                  <a href={t.link} target="_blank" rel="noopener noreferrer">
-                    <span>{t.title}</span>
-                  </a>
-                </div>
-              ))}
-              <div></div>
-            </Card>
+            <Banner toProps={banner} />
+            <Entry toProps={works} />
           </Col>
           <Col xs={24} sm={8}>
             <div className={styles['row-right']}>
