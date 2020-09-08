@@ -5,7 +5,7 @@ import { to } from 'util/index';
 //
 const query = axios.create({
   baseURL: 'https://www.wanandroid.com/',
-  timeout: 1000,
+  timeout: 10 * 1000,
   headers: { 'X-Custom-Header': 'foobar' },
 });
 
