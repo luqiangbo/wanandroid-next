@@ -4,30 +4,15 @@ import axios from 'axios';
 import { Row, Col, Card, Menu, Button, message, Carousel } from 'antd';
 const { SubMenu } = Menu;
 //
-import { to } from 'util/index';
+import { getApi } from 'util/req';
 import { server } from 'config/index';
 //
-const PageIndex = (props) => {
+const PageIndex = ({ works, banner }) => {
   const [current, setCurrent] = useState('1'); // nav
-  const [banner, setBanner] = useState([]); // banner
-  const [works, setWorks] = useState([]); // banner
+
   const onMenu = (e) => {
     setCurrent((t) => e.key);
   };
-  //
-  // useEffect(() => {
-  //   const doapi = async () => {
-  //     const [err, res] = await to(axios.get(`/api/index`));
-  //     setBanner(res.data);
-  //     setWorks([
-  //       { id: 1, name: 'dfsdfldsf' },
-  //       { id: 2, name: 'dfsf' },
-  //       { id: 3, name: 'dfldsf' },
-  //     ]);
-  //   };
-  //   doapi();
-  // }, []);
-  //
   return (
     <>
       <div className="container">
@@ -48,8 +33,8 @@ const PageIndex = (props) => {
             <Card className="card-p0 mb20">
               <div className="index-banner">
                 <Carousel autoplay adaptiveHeight={true}>
-                  {props.banner.length &&
-                    props.banner.map((t, i) => {
+                  {banner.length &&
+                    banner.map((t, i) => {
                       return (
                         <div key={i}>
                           <img src={t.imagePath} alt="" />
@@ -60,14 +45,13 @@ const PageIndex = (props) => {
               </div>
             </Card>
             <Card className="card-p0">
-              {props.works.length &&
-                props.works.map((t) => (
-                  <div key={t.id} className="cp">
-                    <Link href={`/detail/${t.id}`}>
-                      <span>{t.name}</span>
-                    </Link>
-                  </div>
-                ))}
+              {works.datas.map((t) => (
+                <div key={t.id} className="cp">
+                  <a href={t.link} target="_blank" rel="noopener noreferrer">
+                    <span>{t.title}</span>
+                  </a>
+                </div>
+              ))}
               <div></div>
             </Card>
           </Col>
@@ -97,23 +81,31 @@ const PageIndex = (props) => {
   );
 };
 
-export async function getServerSideProps(context) {
-  // const isBrowser = process.browser;
-  // console.log(res);
-  const res = await fetch(`${server}/api/index`);
-  const data = await res.json();
+export const getServerSideProps = async (context) => {
+  const [err, res] = await getApi(`${server}/api/index`);
+  // console.log('pageindex', err, res);
+  if (err) {
+    return {
+      props: {
+        banner: [],
+        works: {
+          curPage: 1,
+          datas: [],
+          offset: 0,
+          over: false,
+          pageCount: 458,
+          size: 20,
+          total: 9156,
+        },
+      },
+    };
+  }
   return {
     props: {
-      data: '123',
-      works: [
-        { id: 1, name: 'dfsdfldsf' },
-        { id: 2, name: 'dfsf' },
-        { id: 3, name: 'dfldsf' },
-      ],
-      banner: data || [],
-      // banner: res.data,
+      banner: res[0],
+      works: res[1],
     },
   };
-}
+};
 
 export default PageIndex;

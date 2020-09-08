@@ -1,11 +1,13 @@
-import { getBanner } from 'fetch/shop';
+import { getAllIndex } from 'fetch/shop';
 
 export default async (req, res) => {
-  console.log('body', req.body); // The request body
-  console.log('query', req.query); // The url querystring
-  console.log('cookies', req.cookies); // The passed cooki
-  const [err1, res1] = await getBanner();
-  console.log(err1, res1);
-  res.json(res1);
-  // res.end('Hello World');
+  const { body, query, cookies } = req;
+  const page = 0;
+  const [errAll, resAll] = await getAllIndex(page);
+  console.log('api', errAll);
+  if (errAll) {
+    res.status(500).json(null);
+    return;
+  }
+  res.status(200).json(resAll);
 };
