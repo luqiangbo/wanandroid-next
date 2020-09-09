@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Row, Col, Card, Spin, Affix } from 'antd';
+import { useInViewport } from 'ahooks';
 //
 import styles from './index.module.scss';
 import { getApi } from 'util/req';
@@ -8,9 +9,10 @@ import Entry from 'component/Entry';
 import Banner from 'component/Banner';
 //
 const PageIndex = ({ banner, works }) => {
-  const listMoreEl = useRef(null);
-  const [worksMore, setWorksMore] = useState({ ...works });
+  const moreRef = useRef(null);
+  const inViewPort = useInViewport(moreRef);
   const [top, setTop] = useState(80);
+  const [worksMore, setWorksMore] = useState({ ...works });
   const [loadingEntry, setLoadingEntry] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(0);
@@ -24,28 +26,18 @@ const PageIndex = ({ banner, works }) => {
   };
   //
   useEffect(() => {
-    if (loadingEntry && hasMore) {
+    if (inViewPort) {
       fetchApiArticle();
     }
   }, [page]);
   // 监听
   useEffect(() => {
-    const observer = new IntersectionObserver((entries, observer) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          //目标元素与根元素香蕉时候为true
-          setLoadingEntry(true);
-          setPage(page + 1);
-          console.log('page', page);
-          observer.unobserve(entry.target);
-        }
-      });
-    });
-    observer.observe(listMoreEl.current);
-    return () => {
-      observer.disconnect();
-    };
-  }, [worksMore]);
+    if (inViewPort && hasMore) {
+      setLoadingEntry(true);
+      setPage(page + 1);
+      console.log('page', page);
+    }
+  }, [inViewPort]);
 
   return (
     <>
@@ -55,7 +47,7 @@ const PageIndex = ({ banner, works }) => {
             <Banner toProps={banner} />
             <Spin spinning={loadingEntry}>
               <Entry toProps={worksMore} />
-              <div ref={listMoreEl}>更多</div>
+              <div ref={moreRef}></div>
             </Spin>
           </Col>
           <Col xs={0} sm={8}>
