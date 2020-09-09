@@ -1,4 +1,4 @@
-import { getArticleList } from 'fetch/shop';
+import { getArticleList } from 'fetch/index';
 
 export default async (req, res) => {
   const { body, query, cookies } = req;

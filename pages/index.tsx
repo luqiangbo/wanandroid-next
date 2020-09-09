@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Row, Col, Card, Spin, Affix } from 'antd';
-import { useInViewport } from 'ahooks';
+import { Row, Col, Spin } from 'antd';
+import { useUpdateEffect, useInViewport } from 'ahooks';
 //
-import styles from './index.module.scss';
 import { getApi } from 'util/req';
 import { server } from 'config/index';
 import Entry from 'component/Entry';
 import Banner from 'component/Banner';
+import ComLeft from 'component/ComLeft';
 //
 const PageIndex = ({ banner, works }) => {
   const moreRef = useRef(null);
@@ -24,11 +24,9 @@ const PageIndex = ({ banner, works }) => {
     setHasMore(!res.over); // 是否还有
     setWorksMore({ ...res, datas: listWorks });
   };
-  //
-  useEffect(() => {
-    if (inViewPort) {
-      fetchApiArticle();
-    }
+  // page更新后执行
+  useUpdateEffect(() => {
+    fetchApiArticle();
   }, [page]);
   // 监听
   useEffect(() => {
@@ -51,26 +49,7 @@ const PageIndex = ({ banner, works }) => {
             </Spin>
           </Col>
           <Col xs={0} sm={8}>
-            <Affix offsetTop={top}>
-              <div className={styles['row-right']}>
-                <Card className='mb20 card-p10'>
-                  <div>
-                    <div>123</div>
-                    <div>123</div>
-                    <div>123</div>
-                    <div>123</div>
-                  </div>
-                </Card>
-                <Card className='mb20 card-p10'>
-                  <div>
-                    <div>123</div>
-                    <div>123</div>
-                    <div>123</div>
-                    <div>123</div>
-                  </div>
-                </Card>
-              </div>
-            </Affix>
+            <ComLeft />
           </Col>
         </Row>
       </div>
