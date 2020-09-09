@@ -1,12 +1,12 @@
-import { get, getCrude } from 'util/req';
-import { to } from 'util/index';
-// 轮播
-export const getBanner = () => get('banner/json');
-// 文章列表
-export const getArticleList = (int) => get(`article/list/${int}/json`);
-// 集合
-export const getAllIndex = (int) => {
-  return to(Promise.all([getCrude('banner/json'), getCrude(`article/list/${int}/json`)]));
-};
-// 文章列表
-export const getHotkey = () => get(`hotkey/json`);
+// 中间层
+import { getApi } from 'util/req';
+import { server } from 'config/index';
+
+// 首页
+export const getIndex = () => getApi(`${server}/api/index`);
+// 首页文章
+export const getIndexEntry = (page) => getApi(`${server}/api/index/entry`, { page });
+// 搜索热词
+export const getIndexHotkey = () => getApi(`${server}/api/index/hotkey`);
+// 搜索页面
+export const getSearch = (data) => getApi(`${server}/api/search/index`);

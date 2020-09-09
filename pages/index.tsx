@@ -2,13 +2,15 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Row, Col, Spin } from 'antd';
 import { useUpdateEffect, useInViewport } from 'ahooks';
 //
-import { getApi } from 'util/req';
-import { server } from 'config/index';
+import { getIndex, getIndexEntry } from 'fetchApi/index';
 import Entry from 'component/Entry';
 import Banner from 'component/Banner';
-import ComLeft from 'component/ComLeft';
+import ComRight from 'component/ComRight';
+import RightSearch from 'component/ComRight/component/RightSearch';
+import RightHotkey from 'component/ComRight/component/RightHotkey';
+import RightUser from 'component/ComRight/component/RightUser';
 //
-const PageIndex = ({ banner, works }) => {
+const PageIndex = ({ banner, works, hotkey }) => {
   const moreRef = useRef(null);
   const inViewPort = useInViewport(moreRef);
   const [top, setTop] = useState(80);
@@ -18,7 +20,7 @@ const PageIndex = ({ banner, works }) => {
   const [page, setPage] = useState(0);
   //
   const fetchApiArticle = async () => {
-    const [err, res] = await getApi(`${server}/api/index/entry`, { page });
+    const [err, res] = await getIndexEntry(page);
     const listWorks = [...worksMore.datas, ...res.datas];
     setLoadingEntry(false); // loading
     setHasMore(!res.over); // 是否还有
@@ -26,7 +28,9 @@ const PageIndex = ({ banner, works }) => {
   };
   // page更新后执行
   useUpdateEffect(() => {
-    fetchApiArticle();
+    if (page !== 0) {
+      fetchApiArticle();
+    }
   }, [page]);
   // 监听
   useEffect(() => {
@@ -49,7 +53,11 @@ const PageIndex = ({ banner, works }) => {
             </Spin>
           </Col>
           <Col xs={0} sm={8}>
-            <ComLeft />
+            <ComRight>
+              <RightSearch />
+              <RightHotkey toProps={hotkey} />
+              <RightUser />
+            </ComRight>
           </Col>
         </Row>
       </div>
@@ -58,12 +66,13 @@ const PageIndex = ({ banner, works }) => {
 };
 
 export const getServerSideProps = async (context) => {
-  const [err, res] = await getApi(`${server}/api/index`);
+  const [err, res] = await getIndex();
   // console.log('pageindex', err, res);
   if (err) {
     return {
       props: {
         banner: [],
+        hotkey: [],
         works: {
           curPage: 1,
           datas: [],
@@ -80,6 +89,7 @@ export const getServerSideProps = async (context) => {
     props: {
       banner: res[0],
       works: res[1],
+      hotkey: res[2],
     },
   };
 };
