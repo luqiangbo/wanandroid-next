@@ -7,7 +7,7 @@ const ComHeader = (props) => {
   const { toProps } = props;
   return (
     <>
-      <Card className="card-p0">
+      <Card className='card-p0'>
         {toProps.datas.map((t) => (
           <div key={t.id} className={styles['entry-item']}>
             <div className={styles['timeline-info']}>
@@ -19,7 +19,7 @@ const ComHeader = (props) => {
                 </div>
               </div>
               <div className={styles['title-row']}>
-                <a href={t.link} target="_blank" rel="noopener noreferrer" className={styles['title']}>
+                <a href={t.link} target='_blank' rel='noopener noreferrer' className={styles['title']}>
                   <span>{t.title}</span>
                 </a>
               </div>

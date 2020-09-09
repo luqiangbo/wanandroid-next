@@ -22,6 +22,8 @@
     "qs": "^6.9.4",
     "react": "16.13.1",
     "react-dom": "16.13.1",
+    "react-infinite-scroller": "^1.2.4",
+    "react-use": "^15.3.4",
     "sass": "^1.26.10",
     "swr": "^0.2.3"
   },

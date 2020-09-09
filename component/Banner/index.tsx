@@ -7,14 +7,14 @@ const ComHeader = (props) => {
   const { toProps } = props;
   return (
     <>
-      <Card className="card-p0 mb20">
+      <Card className='card-p0 mb20'>
         <div className={styles.banner}>
           <Carousel autoplay adaptiveHeight={true}>
             {toProps.length &&
               toProps.map((t, i) => {
                 return (
                   <div key={i}>
-                    <img src={t.imagePath} alt="" />
+                    <img src={t.imagePath} alt='' />
                   </div>
                 );
               })}
