@@ -1,8 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Link from 'next/link';
-import { Row, Col, Card, Menu, Spin, Affix } from 'antd';
-import { useWindowScroll } from 'react-use';
-const { SubMenu } = Menu;
+import { Row, Col, Card, Spin, Affix } from 'antd';
 //
 import styles from './index.module.scss';
 import { getApi } from 'util/req';
@@ -10,39 +7,45 @@ import { server } from 'config/index';
 import Entry from 'component/Entry';
 import Banner from 'component/Banner';
 //
-const PageIndex = ({ works, banner }) => {
-  const listMore = useRef(null);
+const PageIndex = ({ banner, works }) => {
+  const listMoreEl = useRef(null);
+  const [worksMore, setWorksMore] = useState({ ...works });
   const [top, setTop] = useState(80);
   const [loadingEntry, setLoadingEntry] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(0);
-  const { x, y } = useWindowScroll();
   //
   const fetchApiArticle = async () => {
     const [err, res] = await getApi(`${server}/api/index/entry`, { page });
-    setLoadingEntry(false);
-    console.log(err, res);
+    const listWorks = [...worksMore.datas, ...res.datas];
+    setLoadingEntry(false); // loading
+    setHasMore(!res.over); // 是否还有
+    setWorksMore({ ...res, datas: listWorks });
   };
   //
-  // useEffect(() => {
-  //   if (loadingEntry) {
-  //     fetchApiArticle();
-  //   }
-  // }, [page]);
-  //
-  const onLoadMore = () => {
-    setPage((t) => t + 1);
-    setLoadingEntry(true);
-    console.log(page);
-  };
   useEffect(() => {
-    // 定义观察
-    // intiateScrollObserver();
+    if (loadingEntry && hasMore) {
+      fetchApiArticle();
+    }
+  }, [page]);
+  // 监听
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          //目标元素与根元素香蕉时候为true
+          setLoadingEntry(true);
+          setPage(page + 1);
+          console.log('page', page);
+          observer.unobserve(entry.target);
+        }
+      });
+    });
+    observer.observe(listMoreEl.current);
     return () => {
-      // 放弃观察
-      // resetObservation();
+      observer.disconnect();
     };
-  });
+  }, [worksMore]);
 
   return (
     <>
@@ -51,20 +54,8 @@ const PageIndex = ({ works, banner }) => {
           <Col xs={24} sm={16} className='mb20'>
             <Banner toProps={banner} />
             <Spin spinning={loadingEntry}>
-              <Entry toProps={works} />
-              <div
-                ref={listMore}
-                data-shou={page}
-                data-shou1={page}
-                data-shou2={page}
-                data-shou3={page}
-                data-shou4={page}
-                data-shou5={page}
-                data-shou6={page}
-                data-shou7={page}
-                data-shou8={page}>
-                更多
-              </div>
+              <Entry toProps={worksMore} />
+              <div ref={listMoreEl}>更多</div>
             </Spin>
           </Col>
           <Col xs={0} sm={8}>
@@ -72,8 +63,6 @@ const PageIndex = ({ works, banner }) => {
               <div className={styles['row-right']}>
                 <Card className='mb20 card-p10'>
                   <div>
-                    <div>x: {x}</div>
-                    <div>y: {y}</div>
                     <div>123</div>
                     <div>123</div>
                     <div>123</div>
