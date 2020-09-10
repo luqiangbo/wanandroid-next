@@ -6,13 +6,17 @@ import { to } from 'util/index';
 const query = axios.create({
   baseURL: 'https://www.wanandroid.com/',
   timeout: 10 * 1000,
-  headers: { 'X-Custom-Header': 'foobar' },
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+  },
+  transformRequest: [(data) => QS.stringify(data)], // 对 data 进行任意转换处理
 });
 
 query.interceptors.response.use(
   (response) => {
     // 如果返回的状态码为200
     const { data, status } = response;
+    console.log('query', response);
     if (status === 200) {
       if (data.errorCode !== 0) {
         return Promise.reject(data.errorCode);
@@ -27,8 +31,8 @@ query.interceptors.response.use(
     return Promise.reject(error);
   },
 );
-// get
-export const get = (url, params = {}) => {
+// getTo
+export const getTo = (url, params = {}) => {
   return to(
     new Promise((resolve, reject) => {
       query
@@ -42,8 +46,8 @@ export const get = (url, params = {}) => {
     }),
   );
 };
-//
-export const getCrude = (url, params = {}) => {
+// get
+export const get = (url, params = {}) => {
   return new Promise((resolve, reject) => {
     query
       .get(url, { params })
@@ -55,12 +59,14 @@ export const getCrude = (url, params = {}) => {
       });
   });
 };
-// post
-export const post = (url, params = {}) => {
+// postTo
+export const postTo = (url, params = {}) => {
   return to(
     new Promise((resolve, reject) => {
       query
-        .post(url, QS.stringify(params))
+        .post(url, {
+          data: params,
+        })
         .then((res) => {
           resolve(res);
         })
@@ -70,10 +76,23 @@ export const post = (url, params = {}) => {
     }),
   );
 };
+// post
+export const post = (url, params = {}) => {
+  console.log('req', url, params);
+  new Promise((resolve, reject) => {
+    query
+      .post(url, params)
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
 // api 中间层 封装
 const queryApi = axios.create({
   timeout: 10 * 1000,
-  headers: { 'X-Custom-Header': 'foobar' },
 });
 queryApi.interceptors.response.use(
   (response) => {
@@ -90,12 +109,12 @@ queryApi.interceptors.response.use(
     return Promise.reject(error);
   },
 );
-// get
-export const getApi = (url, params = {}) => {
+// getApiTo
+export const getApiTo = (url, params = {}) => {
   return to(
     new Promise((resolve, reject) => {
       queryApi
-        .get(url, { params })
+        .get(url, params)
         .then((res) => {
           resolve(res);
         })
@@ -105,8 +124,8 @@ export const getApi = (url, params = {}) => {
     }),
   );
 };
-//
-export const getCrudeApi = (url, params = {}) => {
+// getApi
+export const getApi = (url, params = {}) => {
   return new Promise((resolve, reject) => {
     queryApi
       .get(url, { params })
@@ -118,12 +137,12 @@ export const getCrudeApi = (url, params = {}) => {
       });
   });
 };
-// post
-export const postApi = (url, params = {}) => {
+// postApiTo
+export const postApiTo = (url, params) => {
   return to(
     new Promise((resolve, reject) => {
       queryApi
-        .post(url, QS.stringify(params))
+        .post(url, params)
         .then((res) => {
           resolve(res);
         })

@@ -1,24 +1,23 @@
-import { get, getCrude } from 'util/req';
+import { getTo, get, post } from 'util/req';
 import { to } from 'util/index';
 // 轮播
-export const getBanner = () => get('banner/json');
+export const getBanner = () => getTo('banner/json');
 // 文章列表
 export const getArticleList = (int, name) => {
   if (name) {
-    return get(`article/list/${int}/json`, { k: name });
+    return getTo(`article/list/${int}/json`, { k: name });
   } else {
-    return get(`article/list/${int}/json`);
+    return getTo(`article/list/${int}/json`);
   }
 };
 // 集合
 export const getAllIndex = (int) => {
-  return to(Promise.all([getCrude('banner/json'), getCrude(`article/list/${int}/json`), getCrude(`hotkey/json`)]));
+  return to(Promise.all([get('banner/json'), get(`article/list/${int}/json`), get(`hotkey/json`)]));
 };
 // 搜索热词
-export const getHotkey = () => get(`hotkey/json`);
+export const getHotkey = () => getTo(`hotkey/json`);
 /// 搜索页面
 // 搜索集合
 export const getAllSearch = (int, name) => {
-  // console.log('fetch', int, name);
-  return to(Promise.all([getCrude(`article/list/${int}/json`, { k: name }), getCrude(`hotkey/json`)]));
+  return to(Promise.all([post(`article/query/${int}/json`, { k: name }), get(`hotkey/json`)]));
 };

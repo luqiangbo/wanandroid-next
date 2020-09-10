@@ -4,7 +4,7 @@ import { Row, Col, Spin, Card } from 'antd';
 import { useUpdateEffect, useInViewport } from 'ahooks';
 
 //
-import { getSearch } from 'fetchApi/index';
+import { getSearch, getIndexEntry } from 'fetchApi/index';
 import Entry from 'component/Entry';
 import ComRight from 'component/ComRight';
 import RightSearch from 'component/ComRight/component/RightSearch';
@@ -19,6 +19,12 @@ const PageSearch = ({ works, hotkey }) => {
   const [worksMore, setWorksMore] = useState({ ...works });
   const moreRef = useRef(null);
   const inViewPort = useInViewport(moreRef);
+  useUpdateEffect(() => {
+    console.log(id);
+  }, [id]);
+  // const fetchApiArticle = async () => {
+  //   const [err, res] = await getIndexEntry(0,);
+  // };
   return (
     <div className='container'>
       <Row>
@@ -41,8 +47,9 @@ const PageSearch = ({ works, hotkey }) => {
 };
 
 export const getServerSideProps = async ({ query }) => {
+  console.log('page search', query);
   const [err, res] = await getSearch(query.id);
-  // console.log('page search', err, res);
+  console.log('page search', err, res);
   if (err) {
     return {
       props: {
