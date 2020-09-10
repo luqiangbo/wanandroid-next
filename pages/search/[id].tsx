@@ -5,6 +5,7 @@ import { useUpdateEffect, useInViewport } from 'ahooks';
 
 //
 import { getSearch, getIndexEntry } from 'fetchApi/index';
+import { postSearch } from 'fetch/index';
 import Entry from 'component/Entry';
 import ComRight from 'component/ComRight';
 import RightSearch from 'component/ComRight/component/RightSearch';
@@ -47,8 +48,8 @@ const PageSearch = ({ works, hotkey }) => {
 };
 
 export const getServerSideProps = async ({ query }) => {
-  console.log('page search', query);
-  const [err, res] = await getSearch(query.id);
+  // console.log('page search', query);
+  const [err, res] = await postSearch(0, query.id);
   console.log('page search', err, res);
   if (err) {
     return {
@@ -68,8 +69,8 @@ export const getServerSideProps = async ({ query }) => {
   }
   return {
     props: {
-      works: res[0],
-      hotkey: res[1],
+      works: [],
+      hotkey: [],
     },
   };
 };

@@ -6,17 +6,17 @@ import { to } from 'util/index';
 const query = axios.create({
   baseURL: 'https://www.wanandroid.com/',
   timeout: 10 * 1000,
-  headers: {
-    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-  },
-  transformRequest: [(data) => QS.stringify(data)], // 对 data 进行任意转换处理
+  // headers: {
+  //   'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+  // },
+  // transformRequest: [(data) => QS.stringify(data)], // 对 data 进行任意转换处理
 });
 
 query.interceptors.response.use(
   (response) => {
     // 如果返回的状态码为200
     const { data, status } = response;
-    console.log('query', response);
+    // console.log('query', response.data, response.status);
     if (status === 200) {
       if (data.errorCode !== 0) {
         return Promise.reject(data.errorCode);
@@ -65,7 +65,7 @@ export const postTo = (url, params = {}) => {
     new Promise((resolve, reject) => {
       query
         .post(url, {
-          data: params,
+          data: QS.stringify(params),
         })
         .then((res) => {
           resolve(res);
@@ -81,8 +81,14 @@ export const post = (url, params = {}) => {
   console.log('req', url, params);
   new Promise((resolve, reject) => {
     query
-      .post(url, params)
+      .post(url, {
+        data: QS.stringify(params),
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        },
+      })
       .then((res) => {
+        console.log('req,post', res);
         resolve(res);
       })
       .catch((error) => {

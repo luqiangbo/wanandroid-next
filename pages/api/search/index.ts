@@ -5,7 +5,7 @@ export default async (req, res) => {
   // console.log('api', query);
   const page = 0;
   const [errAll, resAll] = await getAllSearch(page, query.id);
-  // console.log('api', errAll);
+  console.log('api', errAll, resAll);
   if (errAll) {
     res.status(500).json(null);
     return;

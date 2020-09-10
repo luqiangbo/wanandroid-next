@@ -1,4 +1,4 @@
-import { getTo, get, post } from 'util/req';
+import { getTo, get, post, postTo } from 'util/req';
 import { to } from 'util/index';
 // 轮播
 export const getBanner = () => getTo('banner/json');
@@ -16,8 +16,12 @@ export const getAllIndex = (int) => {
 };
 // 搜索热词
 export const getHotkey = () => getTo(`hotkey/json`);
-/// 搜索页面
 // 搜索集合
 export const getAllSearch = (int, name) => {
-  return to(Promise.all([post(`article/query/${int}/json`, { k: name }), get(`hotkey/json`)]));
+  return to(Promise.all([postTo(`article/query/${int}/json`, { k: name }), get(`hotkey/json`)]));
+};
+// 搜索热词
+export const postSearch = (int, name) => {
+  console.log('fetch', int, name);
+  return postTo(`article/query/${int}/json`, { k: name });
 };
