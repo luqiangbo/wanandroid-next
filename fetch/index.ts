@@ -18,10 +18,9 @@ export const getAllIndex = (int) => {
 export const getHotkey = () => getTo(`hotkey/json`);
 // 搜索集合
 export const getAllSearch = (int, name) => {
-  return to(Promise.all([postTo(`article/query/${int}/json`, { k: name }), get(`hotkey/json`)]));
+  return to(Promise.all([post(`article/query/${int}/json`, { k: name }), get(`hotkey/json`)]));
 };
 // 搜索热词
 export const postSearch = (int, name) => {
-  console.log('fetch', int, name);
   return postTo(`article/query/${int}/json`, { k: name });
 };

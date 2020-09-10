@@ -6,10 +6,10 @@ import { to } from 'util/index';
 const query = axios.create({
   baseURL: 'https://www.wanandroid.com/',
   timeout: 10 * 1000,
-  // headers: {
-  //   'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-  // },
-  // transformRequest: [(data) => QS.stringify(data)], // 对 data 进行任意转换处理
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded',
+  },
+  transformRequest: [(data) => QS.stringify(data)],
 });
 
 query.interceptors.response.use(
@@ -35,8 +35,11 @@ query.interceptors.response.use(
 export const getTo = (url, params = {}) => {
   return to(
     new Promise((resolve, reject) => {
-      query
-        .get(url, { params })
+      query({
+        method: 'get',
+        url,
+        params,
+      })
         .then((res) => {
           resolve(res);
         })
@@ -49,8 +52,11 @@ export const getTo = (url, params = {}) => {
 // get
 export const get = (url, params = {}) => {
   return new Promise((resolve, reject) => {
-    query
-      .get(url, { params })
+    query({
+      method: 'get',
+      url,
+      params,
+    })
       .then((res) => {
         resolve(res);
       })
@@ -63,10 +69,11 @@ export const get = (url, params = {}) => {
 export const postTo = (url, params = {}) => {
   return to(
     new Promise((resolve, reject) => {
-      query
-        .post(url, {
-          data: QS.stringify(params),
-        })
+      query({
+        method: 'post',
+        url,
+        data: params,
+      })
         .then((res) => {
           resolve(res);
         })
@@ -80,13 +87,11 @@ export const postTo = (url, params = {}) => {
 export const post = (url, params = {}) => {
   console.log('req', url, params);
   new Promise((resolve, reject) => {
-    query
-      .post(url, {
-        data: QS.stringify(params),
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-        },
-      })
+    query({
+      method: 'post',
+      url,
+      data: params,
+    })
       .then((res) => {
         console.log('req,post', res);
         resolve(res);
@@ -119,8 +124,11 @@ queryApi.interceptors.response.use(
 export const getApiTo = (url, params = {}) => {
   return to(
     new Promise((resolve, reject) => {
-      queryApi
-        .get(url, params)
+      queryApi({
+        method: 'get',
+        url,
+        params,
+      })
         .then((res) => {
           resolve(res);
         })
@@ -133,8 +141,11 @@ export const getApiTo = (url, params = {}) => {
 // getApi
 export const getApi = (url, params = {}) => {
   return new Promise((resolve, reject) => {
-    queryApi
-      .get(url, { params })
+    queryApi({
+      method: 'get',
+      url,
+      params,
+    })
       .then((res) => {
         resolve(res);
       })
@@ -147,8 +158,11 @@ export const getApi = (url, params = {}) => {
 export const postApiTo = (url, params) => {
   return to(
     new Promise((resolve, reject) => {
-      queryApi
-        .post(url, params)
+      queryApi({
+        method: 'post',
+        url,
+        data: params,
+      })
         .then((res) => {
           resolve(res);
         })
