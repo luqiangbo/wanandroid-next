@@ -9,4 +9,4 @@ export const getIndexEntry = (page) => getApi(`${server}/api/index/entry`, { pag
 // 搜索热词
 export const getIndexHotkey = () => getApi(`${server}/api/index/hotkey`);
 // 搜索页面
-export const getSearch = (data) => getApi(`${server}/api/search/index`);
+export const getSearch = (id) => getApi(`${server}/api/search`, { id });

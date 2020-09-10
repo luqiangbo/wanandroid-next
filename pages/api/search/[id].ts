@@ -1,10 +1,12 @@
 import { getAllSearch } from 'fetch/index';
 
 export default async (req, res) => {
-  const { query } = req;
-  // console.log('api', query);
+  // 路由匹配不上
+  console.log('api', req);
+  const { body, query, cookies } = req;
+  console.log('api', query);
   const page = 0;
-  const [errAll, resAll] = await getAllSearch(page, query.id);
+  const [errAll, resAll] = await getAllSearch(page, '面试');
   // console.log('api', errAll);
   if (errAll) {
     res.status(500).json(null);

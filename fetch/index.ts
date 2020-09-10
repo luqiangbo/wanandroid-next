@@ -19,5 +19,6 @@ export const getHotkey = () => get(`hotkey/json`);
 /// 搜索页面
 // 搜索集合
 export const getAllSearch = (int, name) => {
+  // console.log('fetch', int, name);
   return to(Promise.all([getCrude(`article/list/${int}/json`, { k: name }), getCrude(`hotkey/json`)]));
 };
