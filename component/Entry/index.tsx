@@ -9,19 +9,19 @@ const ComHeader = (props) => {
     <>
       <Card className='card-p0'>
         {toProps.datas &&
-          toProps.datas.map((t) => (
+          toProps.datas.map((t, i) => (
             <div key={t.id} className={styles['entry-item']}>
               <div className={styles['timeline-info']}>
                 <div className={styles['meta-row']}>
                   <div className={styles['meta-list']}>
-                    <div className={styles['item']}>姓名</div>
+                    <div className={styles['item']}>姓名:{i}</div>
                     <div className={styles['item']}>时间</div>
                     <div className={styles['item']}>分类</div>
                   </div>
                 </div>
                 <div className={styles['title-row']}>
                   <a href={t.link} target='_blank' rel='noopener noreferrer' className={styles['title']}>
-                    <span>{t.title}</span>
+                    {t.title.indexOf('<em') === -1 ? <span>{t.title}</span> : <div dangerouslySetInnerHTML={{ __html: t.title }}></div>}
                   </a>
                 </div>
                 <div className={styles['action-row']}>

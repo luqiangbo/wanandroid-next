@@ -4,7 +4,7 @@ import { Row, Col, Spin, Card } from 'antd';
 import { useUpdateEffect, useInViewport } from 'ahooks';
 
 //
-import { getSearch, getIndexEntry } from 'fetchApi/index';
+import { getSearch, getSearchMore } from 'fetchApi/index';
 import Entry from 'component/Entry';
 import ComRight from 'component/ComRight';
 import RightSearch from 'component/ComRight/component/RightSearch';
@@ -15,22 +15,53 @@ const PageSearch = ({ works, hotkey }) => {
   const router = useRouter();
   const { id } = router.query;
   //
-  const [loadingEntry, setLoadingEntry] = useState(false);
-  const [worksMore, setWorksMore] = useState({ ...works });
+  const [page, setPage] = useState(0);
+  const [worksMore, setWorksMore] = useState(works);
+  const [loadingSearch, setLoadingSearch] = useState(false);
+  const [hasMore, setHasMore] = useState(!works.over);
   const moreRef = useRef(null);
   const inViewPort = useInViewport(moreRef);
+
+  const fetchApiArticle = async () => {
+    const [err, res] = await getSearchMore({ page, id });
+    if (err) {
+      console.log(err);
+      return;
+    }
+    // console.log('fetchapiarticle', worksMore, err, res);
+    const listWorks = [...worksMore.datas, ...res.datas];
+    setLoadingSearch(false); // loading
+    setHasMore(!res.over); // 是否还有
+    setWorksMore({ ...res, datas: listWorks });
+  };
+  // page更新后执行
   useUpdateEffect(() => {
-    console.log(id);
+    setWorksMore(works);
+    setPage(0);
+    setHasMore(true);
   }, [id]);
-  // const fetchApiArticle = async () => {
-  //   const [err, res] = await getIndexEntry(0,);
-  // };
+  // page更新后执行
+  useUpdateEffect(() => {
+    if (page !== 0) {
+      fetchApiArticle();
+    }
+  }, [page]);
+  // 监听
+  useUpdateEffect(() => {
+    if (inViewPort && hasMore) {
+      setLoadingSearch(true);
+      setPage(page + 1);
+      console.log('page', page);
+    }
+  }, [inViewPort]);
   return (
     <div className='container'>
       <Row>
         <Col xs={24} sm={16} className='mb20'>
-          <Card className='mb20 card-p10'>搜索关键词 : {id}</Card>
-          <Spin spinning={loadingEntry}>
+          <Card className='mb20 card-p10'>
+            搜索关键词 : {id} page:{page} hasMore:{hasMore + ''}
+          </Card>
+          <Spin spinning={loadingSearch}>
             <Entry toProps={worksMore} />
             <div ref={moreRef}></div>
           </Spin>
@@ -47,7 +78,7 @@ const PageSearch = ({ works, hotkey }) => {
 };
 
 export const getServerSideProps = async ({ query }) => {
-  // console.log('page search', query);
+  console.log('page search', query);
   const [err, res] = await getSearch(query.id);
   console.log('page search', err, res);
   if (err) {

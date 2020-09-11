@@ -20,7 +20,7 @@ export const getHotkey = () => getTo(`hotkey/json`);
 export const getAllSearch = (int, name) => {
   return to(Promise.all([post(`article/query/${int}/json`, { k: name }), get(`hotkey/json`)]));
 };
-// 搜索热词
+// 搜索page
 export const postSearch = (int, name) => {
   return postTo(`article/query/${int}/json`, { k: name });
 };

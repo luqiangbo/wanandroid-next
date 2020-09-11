@@ -10,3 +10,5 @@ export const getIndexEntry = (page) => getApiTo(`${server}/api/index/entry`, { p
 export const getIndexHotkey = () => getApiTo(`${server}/api/index/hotkey`);
 // 搜索页面
 export const getSearch = (id) => getApiTo(`${server}/api/search`, { id });
+// 搜索页面
+export const getSearchMore = (obj) => getApiTo(`${server}/api/search/more`, obj);
