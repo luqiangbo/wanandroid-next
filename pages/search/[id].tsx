@@ -58,9 +58,7 @@ const PageSearch = ({ works, hotkey }) => {
     <div className='container'>
       <Row>
         <Col xs={24} sm={16} className='mb20'>
-          <Card className='mb20 card-p10'>
-            搜索关键词 : {id} page:{page} hasMore:{hasMore + ''}
-          </Card>
+          <Card className='mb20 card-p10'>搜索关键词 : {id}</Card>
           <Spin spinning={loadingSearch}>
             <Entry toProps={worksMore} />
             <div ref={moreRef}></div>
@@ -68,6 +66,9 @@ const PageSearch = ({ works, hotkey }) => {
         </Col>
         <Col xs={0} sm={8}>
           <ComRight>
+            <div>
+              page:{page} hasMore:{hasMore + ''}
+            </div>
             <RightSearch toProps={id || ''} />
             <RightHotkey toProps={hotkey} />
           </ComRight>
