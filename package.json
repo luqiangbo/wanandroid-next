@@ -12,7 +12,6 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.2.2",
-    "@zeit/next-less": "^1.0.1",
     "ahooks": "^2.6.0",
     "antd": "^4.6.2",
     "axios": "^0.20.0",
