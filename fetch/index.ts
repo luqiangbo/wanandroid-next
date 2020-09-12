@@ -3,7 +3,7 @@ import { to } from 'util/index';
 // 轮播
 export const getBanner = () => getTo('banner/json');
 // 文章列表
-export const getArticleList = (int, name) => {
+export const getArticleList = (int, name = '') => {
   if (name) {
     return getTo(`article/list/${int}/json`, { k: name });
   } else {
