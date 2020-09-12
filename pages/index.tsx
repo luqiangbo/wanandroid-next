@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useDispatch } from 'react-redux';
 import { Row, Col, Spin } from 'antd';
 import { useUpdateEffect, useInViewport } from 'ahooks';
 //
+import { initializeStore } from 'store';
+import { serverRenderClock } from 'store/timer/action';
 import { getIndex, getIndexEntry } from 'fetchApi/index';
 import Entry from 'component/Entry';
 import Banner from 'component/Banner';
@@ -10,7 +13,13 @@ import RightSearch from 'component/ComRight/component/RightSearch';
 import RightHotkey from 'component/ComRight/component/RightHotkey';
 import RightUser from 'component/ComRight/component/RightUser';
 //
-const PageIndex = ({ banner, works, hotkey }) => {
+const PageIndex = ({ banner, works, hotkey, initialReduxState }) => {
+  // store
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(serverRenderClock());
+  }, []);
+  //
   const moreRef = useRef(null);
   const inViewPort = useInViewport(moreRef);
   const [top, setTop] = useState(80);
@@ -54,6 +63,7 @@ const PageIndex = ({ banner, works, hotkey }) => {
           </Col>
           <Col xs={0} sm={8}>
             <ComRight>
+              {JSON.stringify(initialReduxState)}
               <RightSearch />
               <RightHotkey toProps={hotkey} />
               <RightUser />
@@ -66,6 +76,9 @@ const PageIndex = ({ banner, works, hotkey }) => {
 };
 
 export const getServerSideProps = async (context) => {
+  const reduxStore = initializeStore({});
+
+  //
   const [err, res] = await getIndex();
   // console.log('pageindex', err, res);
   if (err) {
@@ -90,6 +103,7 @@ export const getServerSideProps = async (context) => {
       banner: res[0],
       works: res[1],
       hotkey: res[2],
+      initialReduxState: reduxStore.getState(),
     },
   };
 };
