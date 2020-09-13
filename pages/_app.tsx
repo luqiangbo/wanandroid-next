@@ -1,5 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
+import { persistStore } from 'redux-persist';
+import { PersistGate } from 'redux-persist/integration/react';
 import { ConfigProvider } from 'antd';
 import 'antd/dist/antd.css';
 //
@@ -17,12 +19,17 @@ const globalConfig = {
 };
 export default function App({ Component, pageProps }) {
   const store = useStore(pageProps.initialReduxState);
+  const persistor = persistStore(store, {}, function () {
+    persistor.persist();
+  });
   return (
     <ConfigProvider {...globalConfig}>
       <Provider store={store}>
-        <Layout title={pageProps.title}>
-          <Component {...pageProps} />
-        </Layout>
+        <PersistGate loading={null} persistor={persistor}>
+          <Layout title={pageProps.title}>
+            <Component {...pageProps} />
+          </Layout>
+        </PersistGate>
       </Provider>
     </ConfigProvider>
   );

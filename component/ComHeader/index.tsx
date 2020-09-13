@@ -1,29 +1,41 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useRouter } from 'next/router';
+import { useSelector, useDispatch } from 'react-redux';
 import { Menu, Affix } from 'antd';
 //
 import styles from './index.module.scss';
+import { setMenuCurrent } from 'store/outline/action';
+
 //
 const ComHeader = () => {
+  const router = useRouter();
+  const dispatch = useDispatch();
+
   const [top, setTop] = useState(0);
-  const [current, setCurrent] = useState('1'); // nav
+  const menuCurrent = useSelector((state) => state.outline.menuCurrent);
+  const menu = useSelector((state) => state.outline.menu);
+  console.log('com header', menuCurrent, menu);
   const onMenu = (e) => {
-    setCurrent((t) => e.key);
+    console.log('com header', e);
+    const { key, keyPath } = e;
+    if (key === '/search') {
+      router.push('/search/[id]', '/search/all');
+    } else {
+      router.push(key);
+    }
+    dispatch(setMenuCurrent(keyPath));
   };
+
   return (
     <>
       <Affix offsetTop={top}>
         <div className={styles.main}>
           <div className='container'>
             <div className='mb20 '>
-              <Menu mode='horizontal' onClick={onMenu} selectedKeys={[current]} className='pb10'>
-                <Menu.Item key='1'>首页</Menu.Item>
-                <Menu.Item key='2'>广场</Menu.Item>
-                <Menu.Item key='3'>导航</Menu.Item>
-                <Menu.Item key='4'>广场</Menu.Item>
-                <Menu.Item key='5'>体系</Menu.Item>
-                <Menu.Item key='6'>项目</Menu.Item>
-                <Menu.Item key='7'>公众号</Menu.Item>
-                <Menu.Item key='8'>项目分类</Menu.Item>
+              <Menu mode='horizontal' onClick={onMenu} selectedKeys={menuCurrent} className='pb10'>
+                {menu.map((t) => (
+                  <Menu.Item key={t.value}>{t.label}</Menu.Item>
+                ))}
               </Menu>
             </div>
           </div>

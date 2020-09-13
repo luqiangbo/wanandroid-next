@@ -1,6 +1,5 @@
 import * as types from './type';
 
-// INITIALIZES CLOCK ON SERVER
 export const serverRenderClock = () => (dispatch) =>
   dispatch({
     type: types.TICK,

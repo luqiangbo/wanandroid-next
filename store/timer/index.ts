@@ -8,7 +8,6 @@ const initialTimerState = {
 
 // TIMER REDUCER
 const TimerReducer = (state = initialTimerState, { type, payload }) => {
-  console.log('reducer', payload);
   switch (type) {
     case types.TICK:
       return {

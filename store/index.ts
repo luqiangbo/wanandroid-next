@@ -3,13 +3,26 @@ import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunkMiddleware from 'redux-thunk';
 import logger from 'redux-logger';
+import { persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
 import reducers from './reducers';
+
+// 持久化
+const persistConfig = {
+  key: 'beijing',
+  storage: storage,
+  // There is an issue in the source code of redux-persist (default setTimeout does not cleaning)
+  // https://github.com/rt2zz/redux-persist/issues/786
+  timeout: null,
+};
+const persistedReducer = persistReducer(persistConfig, reducers);
+//
 
 let store;
 
 function initStore(initialState) {
-  return createStore(reducers, initialState, composeWithDevTools(applyMiddleware(thunkMiddleware, logger)));
+  return createStore(persistedReducer, initialState, composeWithDevTools(applyMiddleware(thunkMiddleware, logger)));
 }
 
 export const initializeStore = (preloadedState) => {
