@@ -66,3 +66,6 @@ docker run --rm \
 ```
 
 参考文档 https://www.ioiox.com/archives/84.html
+
+mobx-react 文档
+https://mobx-react.js.org/
