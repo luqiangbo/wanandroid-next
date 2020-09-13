@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
+import { useLocalStore, useObserver } from 'mobx-react';
 import { Row, Col, Spin } from 'antd';
 import { useUpdateEffect, useInViewport } from 'ahooks';
 //
-import { initializeStore } from 'store';
-import { serverRenderClock } from 'store/timer/action';
+import { initializeStoreRedux } from 'store-redux';
+import { serverRenderClock } from 'store-redux/timer/action';
+import { useStoreMobx } from 'store-mobx';
 import { getIndex, getIndexEntry } from 'fetchApi/index';
 import Entry from 'component/Entry';
 import Banner from 'component/Banner';
@@ -14,11 +16,14 @@ import RightHotkey from 'component/ComRight/component/RightHotkey';
 import RightUser from 'component/ComRight/component/RightUser';
 //
 const PageIndex = ({ banner, works, hotkey, initialReduxState }) => {
-  // store
+  // store redux
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(serverRenderClock());
   }, []);
+  // store mobx
+  const todoList = useStoreMobx({});
+  console.log('pageindex', todoList + '');
   //
   const moreRef = useRef(null);
   const inViewPort = useInViewport(moreRef);
@@ -46,11 +51,11 @@ const PageIndex = ({ banner, works, hotkey, initialReduxState }) => {
     if (inViewPort && hasMore) {
       setLoadingEntry(true);
       setPage(page + 1);
-      console.log('page', page);
+      // console.log('page', page);
     }
   }, [inViewPort]);
 
-  return (
+  return useObserver(() => (
     <>
       <div className='container'>
         <Row>
@@ -72,11 +77,11 @@ const PageIndex = ({ banner, works, hotkey, initialReduxState }) => {
         </Row>
       </div>
     </>
-  );
+  ));
 };
 
 export const getServerSideProps = async (context) => {
-  const reduxStore = initializeStore({});
+  const reduxStore = initializeStoreRedux({});
 
   //
   const [err, res] = await getIndex();

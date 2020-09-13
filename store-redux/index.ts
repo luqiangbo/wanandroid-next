@@ -25,7 +25,7 @@ function initStore(initialState) {
   return createStore(persistedReducer, initialState, composeWithDevTools(applyMiddleware(thunkMiddleware, logger)));
 }
 
-export const initializeStore = (preloadedState) => {
+export const initializeStoreRedux = (preloadedState) => {
   let _store = store ?? initStore(preloadedState);
 
   // After navigating to a page with an initial Redux state, merge that state
@@ -47,7 +47,7 @@ export const initializeStore = (preloadedState) => {
   return _store;
 };
 
-export function useStore(initialState) {
-  const store = useMemo(() => initializeStore(initialState), [initialState]);
+export function useStoreRedux(initialState) {
+  const store = useMemo(() => initializeStoreRedux(initialState), [initialState]);
   return store;
 }

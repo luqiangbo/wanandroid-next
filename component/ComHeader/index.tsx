@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Menu, Affix } from 'antd';
 //
 import styles from './index.module.scss';
-import { setMenuCurrent } from 'store/outline/action';
+import { setMenuCurrent } from 'store-redux/outline/action';
 
 //
 const ComHeader = () => {
