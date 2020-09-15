@@ -8,7 +8,7 @@ const initializeStore = {
       label: '首页',
     },
     {
-      value: '/search/all',
+      value: '/article',
       label: '广场',
     },
     {

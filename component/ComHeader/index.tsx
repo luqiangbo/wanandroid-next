@@ -31,11 +31,7 @@ const ComHeader = () => {
   const onMenu = (e) => {
     console.log('com header', e);
     const { key, keyPath } = e;
-    if (key === '/search') {
-      router.push('/search/[id]', '/search/all');
-    } else {
-      router.push(key);
-    }
+    router.push(key);
     dispatch(setMenuCurrent(keyPath));
   };
 
