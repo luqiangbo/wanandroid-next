@@ -26,3 +26,9 @@ export const postSearch = (int, name) => {
 };
 // 导航 page
 export const getNavi = () => getTo(`navi/json`);
+// 广场页面 集合
+export const getArticleAll = (int) => {
+  return to(Promise.all([get(`user_article/list/${int}/json`), get(`hotkey/json`)]));
+};
+// 广场页面 加载
+export const getArticleMore = (int) => getTo(`user_article/list/${int}/json`);

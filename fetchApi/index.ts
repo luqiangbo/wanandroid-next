@@ -14,3 +14,8 @@ export const getSearch = (id) => getApiTo(`${server}/api/search`, { id });
 export const getSearchMore = (obj) => getApiTo(`${server}/api/search/more`, obj);
 // 导航页面
 export const getNavi = () => getApiTo(`${server}/api/navi`);
+
+// 首页
+export const getArticle = () => getApiTo(`${server}/api/article/index`);
+// 首页文章
+export const getArticleMore = (page) => getApiTo(`${server}/api/article/more`, { page });
