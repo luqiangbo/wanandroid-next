@@ -24,3 +24,5 @@ export const getAllSearch = (int, name) => {
 export const postSearch = (int, name) => {
   return postTo(`article/query/${int}/json`, { k: name });
 };
+// 导航 page
+export const getNavi = () => getTo(`navi/json`);

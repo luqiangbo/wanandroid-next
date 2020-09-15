@@ -9,6 +9,14 @@ li {
 a {
   text-decoration: none;
 }
+.nowrap {
+  display: block;
+  white-space: nowrap; /* 不换行 */
+  overflow: hidden; /* 超出隐藏 */
+  text-overflow: ellipsis; /* 超出部分显示省略号 */
+}
+
+// flex
 .flex {
   display: flex;
 }
@@ -91,4 +99,25 @@ a {
 }
 .highlight {
   background-color: #ffb73f;
+}
+// 导航页面
+.page-navi {
+  .navi-ul {
+    padding: 10px 0;
+    .navi-links {
+      .item {
+        display: block;
+        padding: 4px 8px;
+        color: #71777c;
+        &:hover {
+          color: #007fff;
+          background-color: #fcfcfc;
+        }
+      }
+    }
+  }
+  .page-navi-right {
+    height: calc(100vh - 100px);
+    overflow-y: auto;
+  }
 }

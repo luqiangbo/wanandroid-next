@@ -44,7 +44,7 @@ const ComHeader = () => {
       <Affix offsetTop={top}>
         <div className={styles.main}>
           <div className='container'>
-            {username}
+            {/* {username} */}
             <div className='mb20 '>
               <Menu mode='horizontal' onClick={onMenu} selectedKeys={menuCurrent} className='pb10'>
                 {menu.map((t) => (
