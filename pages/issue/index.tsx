@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
+import { useRouter } from 'next/router';
 import { useObserver } from 'mobx-react';
-import { Row, Col, Spin } from 'antd';
+import { Row, Col, Pagination } from 'antd';
 import { useUpdateEffect } from 'ahooks';
 //
-import { getIssueMore, getIssueGoods } from 'fetchApi/index';
+import { getIssueGoods, getIssueMore } from 'fetchApi/index';
 import Entry from 'component/Entry';
 import ComRight from 'component/ComRight';
 import RightSearch from 'component/ComRight/component/RightSearch';
@@ -11,12 +12,29 @@ import RightHotkey from 'component/ComRight/component/RightHotkey';
 import RightUser from 'component/ComRight/component/RightUser';
 //
 const PageIssue = ({ works, hotkey }) => {
+  const router = useRouter();
+  const { page } = router.query;
+
+  const [worksUpdate, setWorksUpdate] = useState({ ...works });
+
+  const onChange = (props) => {
+    router.push(`/issue?page=${props}`, undefined, { shallow: true });
+  };
+  const onMore = async () => {
+    const [err, res] = await getIssueMore(page);
+    setWorksUpdate(res);
+  };
+  useUpdateEffect(() => {
+    onMore();
+  }, [page]);
+  //
   return useObserver(() => (
     <>
       <div className='container'>
         <Row>
           <Col xs={24} sm={16} className='mb20'>
-            <Entry toProps={works} />
+            <Entry toProps={worksUpdate} />
+            <Pagination defaultCurrent={worksUpdate.curPage + 1} total={worksUpdate.total} showSizeChanger={false} onChange={onChange} />
           </Col>
           <Col xs={0} sm={8}>
             <ComRight>
@@ -32,9 +50,9 @@ const PageIssue = ({ works, hotkey }) => {
 };
 
 export const getServerSideProps = async (context) => {
+  const { query } = context;
   //
-  const [err, res] = await getIssueGoods();
-  console.log('pageissue', err);
+  const [err, res] = await getIssueGoods(query);
   if (err) {
     return {
       props: {

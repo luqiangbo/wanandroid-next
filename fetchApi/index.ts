@@ -22,6 +22,6 @@ export const getArticleMore = (page) => getApiTo(`${server}/api/article/more`, {
 // 问答
 export const getIssue = () => getApiTo(`${server}/api/issue/index`);
 // 问答
-export const getIssueGoods = () => getApiTo(`${server}/api/issue/goods`);
+export const getIssueGoods = (obj) => getApiTo(`${server}/api/issue/goods`, obj);
 // 问答
 export const getIssueMore = (page) => getApiTo(`${server}/api/issue/more`, { page });
