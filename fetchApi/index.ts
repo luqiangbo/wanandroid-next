@@ -15,7 +15,13 @@ export const getSearchMore = (obj) => getApiTo(`${server}/api/search/more`, obj)
 // 导航页面
 export const getNavi = () => getApiTo(`${server}/api/navi`);
 
-// 首页
+// 广场
 export const getArticle = () => getApiTo(`${server}/api/article/index`);
-// 首页文章
+// 广场
 export const getArticleMore = (page) => getApiTo(`${server}/api/article/more`, { page });
+// 问答
+export const getIssue = () => getApiTo(`${server}/api/issue/index`);
+// 问答
+export const getIssueGoods = () => getApiTo(`${server}/api/issue/goods`);
+// 问答
+export const getIssueMore = (page) => getApiTo(`${server}/api/issue/more`, { page });

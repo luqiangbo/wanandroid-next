@@ -16,7 +16,7 @@ query.interceptors.response.use(
   (response) => {
     // 如果返回的状态码为200
     const { data, status } = response;
-    // console.log('query', response.data, response.status);
+    console.log('query', response.data, response.status);
     if (status === 200) {
       if (data.errorCode !== 0) {
         return Promise.reject(data.errorCode);
@@ -109,7 +109,7 @@ queryApi.interceptors.response.use(
   (response) => {
     // 如果返回的状态码为200
     const { data, status } = response;
-    // console.log('queryApi', data);
+    console.log('queryApi', data);
     if (status === 200) {
       return data;
     } else {

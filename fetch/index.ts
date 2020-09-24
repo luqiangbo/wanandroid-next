@@ -32,3 +32,9 @@ export const getArticleAll = (int) => {
 };
 // 广场页面 加载
 export const getArticleMore = (int) => getTo(`user_article/list/${int}/json`);
+// 问答页面 集合
+export const getIssueAll = (int) => {
+  return to(Promise.all([get(`wenda/list/${int}/json`), get(`hotkey/json`)]));
+};
+// 问答页面 加载
+export const getIssueMore = (int) => getTo(`wenda/list/${int}/json`);

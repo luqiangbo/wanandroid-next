@@ -22,7 +22,7 @@ const persistedReducer = persistReducer(persistConfig, reducers);
 let store;
 
 function initStore(initialState) {
-  return createStore(persistedReducer, initialState, composeWithDevTools(applyMiddleware(thunkMiddleware, logger)));
+  return createStore(persistedReducer, initialState, composeWithDevTools(applyMiddleware(thunkMiddleware)));
 }
 
 export const initializeStoreRedux = (preloadedState) => {
