@@ -25,3 +25,5 @@ export const getIssue = () => getApiTo(`${server}/api/issue/index`);
 export const getIssueGoods = (obj) => getApiTo(`${server}/api/issue/goods`, obj);
 // 问答
 export const getIssueMore = (page) => getApiTo(`${server}/api/issue/more`, { page });
+// 体系
+export const getTree = (params) => getApiTo(`${server}/api/tree/home`, params);

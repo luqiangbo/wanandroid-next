@@ -16,7 +16,6 @@ query.interceptors.response.use(
   (response) => {
     // 如果返回的状态码为200
     const { data, status } = response;
-    console.log('query', response.data, response.status);
     if (status === 200) {
       if (data.errorCode !== 0) {
         return Promise.reject(data.errorCode);
@@ -85,7 +84,6 @@ export const postTo = (url, params = {}) => {
 };
 // post
 export const post = (url, params = {}) => {
-  console.log('req', url, params);
   new Promise((resolve, reject) => {
     query({
       method: 'post',
@@ -109,7 +107,6 @@ queryApi.interceptors.response.use(
   (response) => {
     // 如果返回的状态码为200
     const { data, status } = response;
-    console.log('queryApi', data);
     if (status === 200) {
       return data;
     } else {

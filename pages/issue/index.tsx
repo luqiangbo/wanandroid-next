@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useObserver } from 'mobx-react';
-import { Row, Col, Pagination } from 'antd';
+import { Row, Col, Pagination, Card } from 'antd';
 import { useUpdateEffect } from 'ahooks';
 //
 import { getIssueGoods, getIssueMore } from 'fetchApi/index';
@@ -33,8 +33,12 @@ const PageIssue = ({ works, hotkey }) => {
       <div className='container'>
         <Row>
           <Col xs={24} sm={16} className='mb20'>
-            <Entry toProps={worksUpdate} />
-            <Pagination defaultCurrent={worksUpdate.curPage + 1} total={worksUpdate.total} showSizeChanger={false} onChange={onChange} />
+            <div className='mb20'>
+              <Entry toProps={worksUpdate} />
+            </div>
+            <Card size='small' className='mb20 card-p10'>
+              <Pagination defaultCurrent={worksUpdate.curPage + 1} total={worksUpdate.total} showSizeChanger={false} onChange={onChange} />
+            </Card>
           </Col>
           <Col xs={0} sm={8}>
             <ComRight>

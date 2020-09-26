@@ -4,7 +4,7 @@ export default async (req, res) => {
   const { query } = req;
   // console.log('api', query);
   const page = 0;
-  const [err1, res1] = await postSearch(page, query.id);
+  const [err1, res1] = await postSearch({ page, name: query.id });
   const [err2, res2] = await getHotkey();
   // console.log('api', errAll, resAll);
   if (err1) {

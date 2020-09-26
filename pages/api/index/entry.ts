@@ -5,7 +5,7 @@ export default async (req, res) => {
   const {
     query: { page },
   } = req;
-  const [errArticle, resArticle] = await getArticleList(page * 1);
+  const [errArticle, resArticle] = await getArticleList({ page: page * 1, name: '' });
   if (errArticle) {
     res.status(500).json(null);
     return;

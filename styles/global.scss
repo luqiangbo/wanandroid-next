@@ -121,3 +121,9 @@ a {
     overflow-y: auto;
   }
 }
+.com-tags {
+  padding: 10px;
+  .ant-radio-button-wrapper {
+    margin: 5px;
+  }
+}
