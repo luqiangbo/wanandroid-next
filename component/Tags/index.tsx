@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { Card, Radio, Carousel } from 'antd';
 import { find } from 'lodash';
 //
 //
 const Tags = (props) => {
-  const { toProps } = props;
-  const [value, setValue] = useState(null);
+  const router = useRouter();
+  const { cid } = router.query;
+  const { toProps, handlerClick } = props;
+  // console.log('c tags', cid, toProps[0].id);
+  const cidDefault = cid || toProps[0].id;
+  const [value, setValue] = useState(cidDefault * 1);
   const [valueChildren, setValueChildren] = useState(null);
   const [list, setList] = useState([]);
   const [listChildren, setListChildren] = useState([]);
@@ -22,7 +27,8 @@ const Tags = (props) => {
     const childrenTrim = children.map((item) => {
       return { ...item, label: item.name, value: item.id };
     });
-    console.log('123', value, lucky);
+    // console.log('123', value, lucky);
+    handlerClick(value);
     setListChildren(childrenTrim);
     setValue(value);
     setValueChildren(null);
@@ -30,6 +36,7 @@ const Tags = (props) => {
   const onChangeChildren = (e) => {
     const value = e.target.value;
     setValueChildren(value);
+    handlerClick(value);
   };
   return (
     <>

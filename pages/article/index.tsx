@@ -4,7 +4,7 @@ import { Row, Col, Spin } from 'antd';
 import { useUpdateEffect, useInViewport } from 'ahooks';
 //
 import { useStoreMobx } from 'store-mobx';
-import { getArticle, getArticleMore } from 'fetchApi/index';
+import { getArticle, getArticleQuery } from 'fetchApi/index';
 import Entry from 'component/Entry';
 import ComRight from 'component/ComRight';
 import RightSearch from 'component/ComRight/component/RightSearch';
@@ -25,7 +25,7 @@ const PageArticle = ({ works, hotkey }) => {
   const [page, setPage] = useState(0);
   //
   const fetchApiArticle = async () => {
-    const [err, res] = await getArticleMore(page);
+    const [err, res] = await getArticleQuery({ page });
     const listWorks = [...worksMore.datas, ...res.datas];
     setLoadingEntry(false); // loading
     setHasMore(!res.over); // 是否还有

@@ -1,10 +1,8 @@
-import { getArticleMore } from 'fetch/index';
+import { getArticleQuery } from 'fetch/index';
 
 export default async (req, res) => {
-  const {
-    query: { page },
-  } = req;
-  const [err1, res1] = await getArticleMore(page * 1);
+  const { query } = req;
+  const [err1, res1] = await getArticleQuery(query);
   if (err1) {
     res.status(500).json(null);
     return;

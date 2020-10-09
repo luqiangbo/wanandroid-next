@@ -17,8 +17,8 @@ export const getNavi = () => getApiTo(`${server}/api/navi`);
 
 // 广场
 export const getArticle = () => getApiTo(`${server}/api/article/index`);
-// 广场
-export const getArticleMore = (page) => getApiTo(`${server}/api/article/more`, { page });
+//
+export const getArticleQuery = (params) => getApiTo(`${server}/api/article/more`, params);
 // 问答
 export const getIssue = () => getApiTo(`${server}/api/issue/index`);
 // 问答
