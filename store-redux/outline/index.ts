@@ -31,10 +31,6 @@ const initializeStore = {
       value: '/wxarticle',
       label: '公众号',
     },
-    {
-      value: '/project-classes',
-      label: '项目分类',
-    },
   ],
 };
 

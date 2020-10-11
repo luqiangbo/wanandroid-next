@@ -46,6 +46,12 @@ export const getTreeJson = () => {
 };
 export const getArticleQuery = (params) => {
   const { cid, page } = params;
-  // console.log('getArticleQuery', cid, page);
   return getTo(`user_article/list/${page}/json?cid=${cid}`);
+};
+// 4.1 项目分类
+export const getProjectTreeJson = () => getTo(`project/tree/json`);
+// 4.2 项目列表数据
+export const getProject = (params) => {
+  const { page, cid } = params;
+  return getTo(`project/list/${page}/json?cid=${cid}`);
 };
