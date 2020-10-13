@@ -217,3 +217,19 @@ a {
   display: flex;
   justify-content: center;
 }
+.com-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .com-header-right {
+    display: flex;
+    align-items: center;
+    .login {
+      margin-right: 10px;
+      cursor: pointer;
+    }
+    .enroll {
+      cursor: pointer;
+    }
+  }
+}

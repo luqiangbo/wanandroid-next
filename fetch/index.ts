@@ -55,3 +55,8 @@ export const getProject = (params) => {
   const { page, cid } = params;
   return getTo(`project/list/${page}/json?cid=${cid}`);
 };
+// 5.1 登录
+export const postLogin = (params) => {
+  console.log('登录', params);
+  return postTo(`user/login`, params);
+};
