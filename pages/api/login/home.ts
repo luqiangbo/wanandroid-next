@@ -7,5 +7,6 @@ export default async (req, res) => {
     res.status(200).json(err1);
     return;
   }
+  res.setHeader('set-cookie', res1['set-cookie']);
   res.status(200).json(res1);
 };

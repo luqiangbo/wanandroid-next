@@ -26,7 +26,7 @@ query.interceptors.response.use(
           // 登录
           return {
             ...data.data,
-            cookie: headers['set-cookie'],
+            'set-cookie': headers['set-cookie'],
           };
         }
         return data.data;
