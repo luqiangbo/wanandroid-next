@@ -29,3 +29,5 @@ export const getIssueMore = (page) => getApiTo(`${server}/api/issue/more`, { pag
 export const getTree = (params) => getApiTo(`${server}/api/tree/home`, params);
 // 项目
 export const getProject = (params) => getApiTo(`${server}/api/project/home`, params);
+// login
+export const getLogin = (params) => getApiTo(`${server}/api/login/home`, params);

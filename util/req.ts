@@ -1,5 +1,6 @@
 import axios from 'axios'; // 引入axios
 import QS from 'qs';
+
 //
 import { to } from 'util/index';
 //
@@ -15,15 +16,23 @@ const query = axios.create({
 query.interceptors.response.use(
   (response) => {
     // 如果返回的状态码为200
-    const { data, status } = response;
+    const { data, status, headers, request } = response;
+    // console.log('query', headers, request.path);
     if (status === 200) {
       if (data.errorCode !== 0) {
-        return Promise.reject(data.errorCode);
+        return Promise.reject(data);
       } else {
+        if (request.path === '/user/login') {
+          // 登录
+          return {
+            ...data.data,
+            cookie: headers['set-cookie'],
+          };
+        }
         return data.data;
       }
     } else {
-      return Promise.reject(status);
+      return Promise.reject(data);
     }
   },
   (error) => {
@@ -91,7 +100,7 @@ export const post = (url, params = {}) => {
       data: params,
     })
       .then((res) => {
-        console.log('req,post', res);
+        // console.log('req,post', res);
         resolve(res);
       })
       .catch((error) => {

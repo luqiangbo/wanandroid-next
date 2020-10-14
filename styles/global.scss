@@ -233,3 +233,11 @@ a {
     }
   }
 }
+.c-modal-login {
+  .submit-button {
+    .ant-form-item-control-input-content {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+}
