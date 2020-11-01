@@ -1,4 +1,4 @@
-import { getAllIndex } from 'fetch/index';
+import { getAllIndex } from 'fetchServe/index';
 
 export default async (req, res) => {
   const { body, query, cookies } = req;

@@ -1,12 +1,11 @@
 import React, { useState, useContext, createContext } from 'react';
 import { useRouter } from 'next/router';
 import { useSelector, useDispatch } from 'react-redux';
-import { useObserver } from 'mobx-react';
 import { Menu, Affix } from 'antd';
+
 //
-import { useStoreMobx } from 'store-mobx';
 import styles from './index.module.scss';
-import { setMenuCurrent } from 'store-redux/outline/action';
+import { setMenuCurrent, setUserInfo } from 'store-redux/outline/action';
 import ModalLogin from './component/Login';
 
 interface ContextType {
@@ -17,31 +16,21 @@ export const UserContext = createContext<ContextType>({
   isModalLogin: false,
   setIsModalLogin: () => {},
 });
-// mobx
-function useUserData() {
-  const storeMobx = useStoreMobx({});
-  console.log('useUserData', storeMobx);
-  return useObserver(() => ({
-    username: '123',
-  }));
-}
 //
 const ComHeader = () => {
   const router = useRouter();
   const dispatch = useDispatch();
-  //mobx
-  const { username } = useUserData();
-  console.log('comheader', username);
-  //
   const [isModalLogin, setIsModalLogin] = useState(false);
   //
 
   const [top, setTop] = useState(0);
   const menuCurrent = useSelector((state) => state.outline.menuCurrent);
   const menu = useSelector((state) => state.outline.menu);
-  console.log('com header', menuCurrent, menu);
+  const isLogin = useSelector((state) => state.outline.isLogin);
+  const userInfo = useSelector((state) => state.outline.userInfo);
+  // console.log('redux com header', menuCurrent, menu);
   const onMenu = (e) => {
-    console.log('com header', e);
+    // console.log('com header', e);
     const { key, keyPath } = e;
     router.push(key);
     dispatch(setMenuCurrent(keyPath));
@@ -51,12 +40,12 @@ const ComHeader = () => {
     console.log('登录');
     setIsModalLogin((t) => !t);
   };
+  const onEnroll = () => {};
   return (
     <>
       <Affix offsetTop={top}>
         <div className={styles.main}>
           <div className='container'>
-            {/* {username} */}
             <div className='mb20 com-header'>
               <Menu mode='horizontal' onClick={onMenu} selectedKeys={menuCurrent} className='pb10'>
                 {menu.map((t) => (
@@ -64,10 +53,22 @@ const ComHeader = () => {
                 ))}
               </Menu>
               <div className='com-header-right'>
-                <div className='login' onClick={onLogin}>
-                  登录
-                </div>
-                <div className='enroll'>注册</div>
+                {isLogin ? (
+                  <div>{userInfo.publicName}</div>
+                ) : (
+                  <>
+                    <div className='login' onClick={onLogin}>
+                      登录
+                    </div>
+                    <div
+                      className='enroll'
+                      onClick={() => {
+                        onEnroll();
+                      }}>
+                      注册
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           </div>

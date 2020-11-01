@@ -1,4 +1,4 @@
-import { getAllSearch } from 'fetch/index';
+import { getAllSearch } from 'fetchServe/index';
 
 export default async (req, res) => {
   // 路由匹配不上

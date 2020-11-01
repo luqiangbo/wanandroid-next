@@ -1,4 +1,4 @@
-import { postSearch } from 'fetch/index';
+import { postSearch } from 'fetchServe/index';
 
 export default async (req, res) => {
   const { query } = req;

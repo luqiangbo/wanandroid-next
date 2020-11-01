@@ -3,7 +3,7 @@ import { Row, Col, Card, Affix, Anchor } from 'antd';
 const { Link } = Anchor;
 
 //
-import { getNavi } from '@/fetchApi/index';
+import { getNavi } from '@/fetchMiddleware/index';
 
 const PageNavi = (props) => {
   const { navi } = props;

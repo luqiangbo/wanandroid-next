@@ -8,8 +8,9 @@ let store;
 
 class Store {
   @observable lastUpdate = 0;
-  @observable light = false;
-  @observable timer = null;
+  @observable light = false; // 权限
+  @observable timer = null; // 时间
+  @observable userInfo = {};
   //
   @action start = () => {
     this.timer = setInterval(() => {
@@ -18,6 +19,13 @@ class Store {
         this.light = true;
       });
     }, 1000);
+  };
+  // 设置用户权限
+  @action setUserInfo = async (value) => {
+    console.log('mobx', value);
+    // runInAction(() => {
+    //   this.userInfo = value;
+    // });
   };
 
   @computed get timeString() {

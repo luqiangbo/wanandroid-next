@@ -4,7 +4,7 @@ import { useObserver } from 'mobx-react';
 import { Row, Col, Spin } from 'antd';
 import { useUpdateEffect, useInViewport } from 'ahooks';
 //
-import { getTree, getArticleQuery } from 'fetchApi/index';
+import { getTree, getArticleQuery } from 'fetchMiddleware/index';
 import Entry from '@/component/Entry';
 import ComRight from '@/component/ComRight';
 import Tags from '@/component/Tags';

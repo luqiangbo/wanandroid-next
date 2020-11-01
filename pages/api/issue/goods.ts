@@ -1,4 +1,4 @@
-import { getIssueMore, getHotkey } from 'fetch/index';
+import { getIssueMore, getHotkey } from 'fetchServe/index';
 
 export default async (req, res) => {
   const {

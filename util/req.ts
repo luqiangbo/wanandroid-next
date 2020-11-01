@@ -4,7 +4,7 @@ import QS from 'qs';
 //
 import { to } from 'util/index';
 //
-const query = axios.create({
+const queryServe = axios.create({
   baseURL: 'https://www.wanandroid.com/',
   timeout: 10 * 1000,
   headers: {
@@ -13,7 +13,7 @@ const query = axios.create({
   transformRequest: [(data) => QS.stringify(data)],
 });
 
-query.interceptors.response.use(
+queryServe.interceptors.response.use(
   (response) => {
     // 如果返回的状态码为200
     const { data, status, headers, request } = response;
@@ -40,10 +40,10 @@ query.interceptors.response.use(
   },
 );
 // getTo
-export const getTo = (url, params = {}) => {
+export const getServeTo = (url, params = {}) => {
   return to(
     new Promise((resolve, reject) => {
-      query({
+      queryServe({
         method: 'get',
         url,
         params,
@@ -58,9 +58,9 @@ export const getTo = (url, params = {}) => {
   );
 };
 // get
-export const get = (url, params = {}) => {
+export const getServe = (url, params = {}) => {
   return new Promise((resolve, reject) => {
-    query({
+    queryServe({
       method: 'get',
       url,
       params,
@@ -74,10 +74,10 @@ export const get = (url, params = {}) => {
   });
 };
 // postTo
-export const postTo = (url, params = {}) => {
+export const postServeTo = (url, params = {}) => {
   return to(
     new Promise((resolve, reject) => {
-      query({
+      queryServe({
         method: 'post',
         url,
         data: params,
@@ -92,9 +92,9 @@ export const postTo = (url, params = {}) => {
   );
 };
 // post
-export const post = (url, params = {}) => {
+export const postServe = (url, params = {}) => {
   new Promise((resolve, reject) => {
-    query({
+    queryServe({
       method: 'post',
       url,
       data: params,
@@ -108,12 +108,26 @@ export const post = (url, params = {}) => {
       });
   });
 };
+export const requestServeTo = (config) => {
+  return to(
+    new Promise((resolve, reject) => {
+      queryServe(config)
+        .then((res) => {
+          resolve(res);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    }),
+  );
+};
 // api 中间层 封装
-const queryApi = axios.create({
+const queryMiddleware = axios.create({
   timeout: 10 * 1000,
 });
-queryApi.interceptors.response.use(
+queryMiddleware.interceptors.response.use(
   (response) => {
+    // console.log('util req', response);
     // 如果返回的状态码为200
     const { data, status } = response;
     if (status === 200) {
@@ -127,10 +141,10 @@ queryApi.interceptors.response.use(
   },
 );
 // getApiTo
-export const getApiTo = (url, params = {}) => {
+export const getMiddlewareTo = (url, params = {}) => {
   return to(
     new Promise((resolve, reject) => {
-      queryApi({
+      queryMiddleware({
         method: 'get',
         url,
         params,
@@ -145,9 +159,9 @@ export const getApiTo = (url, params = {}) => {
   );
 };
 // getApi
-export const getApi = (url, params = {}) => {
+export const getMiddleware = (url, params = {}) => {
   return new Promise((resolve, reject) => {
-    queryApi({
+    queryMiddleware({
       method: 'get',
       url,
       params,
@@ -161,14 +175,27 @@ export const getApi = (url, params = {}) => {
   });
 };
 // postApiTo
-export const postApiTo = (url, params) => {
+export const postMiddlewareTo = (url, params) => {
   return to(
     new Promise((resolve, reject) => {
-      queryApi({
+      queryMiddleware({
         method: 'post',
         url,
         data: params,
       })
+        .then((res) => {
+          resolve(res);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    }),
+  );
+};
+export const requestMiddlewareTo = (config) => {
+  return to(
+    new Promise((resolve, reject) => {
+      queryMiddleware(config)
         .then((res) => {
           resolve(res);
         })

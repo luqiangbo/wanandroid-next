@@ -1,4 +1,4 @@
-import { getNavi } from 'fetch/index';
+import { getNavi } from 'fetchServe/index';
 
 export default async (req, res) => {
   const [errAll, resAll] = await getNavi();

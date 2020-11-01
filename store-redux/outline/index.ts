@@ -2,6 +2,8 @@ import * as types from './type';
 
 const initializeStore = {
   menuCurrent: ['/'],
+  userInfo: {},
+  isLogin: false,
   menu: [
     {
       value: '/',
@@ -40,6 +42,16 @@ const OutlineReduver = (state = initializeStore, { type, payload }) => {
     return {
       ...state,
       menuCurrent: payload,
+    };
+  } else if (type === types.USER_INFO) {
+    return {
+      ...state,
+      userInfo: payload,
+    };
+  } else if (type === types.IS_LOGIN) {
+    return {
+      ...state,
+      isLogin: payload,
     };
   } else {
     return state;

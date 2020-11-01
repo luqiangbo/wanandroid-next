@@ -1,4 +1,4 @@
-import { getProject, getProjectTreeJson } from 'fetch/index';
+import { getProject, getProjectTreeJson } from 'fetchServe/index';
 
 export default async (req, res) => {
   let { query } = req;

@@ -1,4 +1,4 @@
-import { getTreeAll, getTreeJson } from 'fetch/index';
+import { getTreeAll, getTreeJson } from 'fetchServe/index';
 
 export default async (req, res) => {
   const [err1, res1] = await getTreeJson();

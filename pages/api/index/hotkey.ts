@@ -1,4 +1,4 @@
-import { getHotkey } from 'fetch/index';
+import { getHotkey } from 'fetchServe/index';
 
 export default async (req, res) => {
   const [err1, res1] = await getHotkey();

@@ -1,25 +1,34 @@
-import React, { useState, useContext, createContext } from 'react';
+import React, { useContext, createContext } from 'react';
 import { Modal, Button, Form, Input, message } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
 //
+import { setIsLogin, setUserInfo } from '@/store-redux/outline/action';
 import { UserContext } from '@/component/ComHeader/index';
-import { getLogin } from '@/fetchApi/index';
+import { getLogin } from '@/fetchMiddleware/index';
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const isLogin = useSelector((state) => state.outline.isLogin);
   const rulesUsername = [{ required: true, message: '请输入你的名字' }];
   const rulesPassword = [{ required: true, message: '请输入你的密码' }];
   let { isModalLogin, setIsModalLogin } = useContext(UserContext);
   const handleOk = () => {
-    console.log('ok');
+    // console.log('ok');
   };
   const handleCancel = () => {
     setIsModalLogin(false);
   };
   const onFinish = async (values) => {
     const [err, res] = await getLogin(values);
+    // console.log('c login', res);
     if (res.errorCode) {
       message.error(res.errorMsg);
       return;
     }
+    dispatch(setIsLogin(true));
+    dispatch(setUserInfo(res));
+    handleCancel();
+    message.success('登录成功');
   };
 
   const onFinishFailed = (errorInfo) => {

@@ -4,7 +4,7 @@ import { Row, Col, Spin } from 'antd';
 import { useUpdateEffect, useInViewport } from 'ahooks';
 //
 import { useStoreMobx } from 'store-mobx';
-import { getArticle, getArticleQuery } from 'fetchApi/index';
+import { getArticle, getArticleQuery } from 'fetchMiddleware/index';
 import Entry from 'component/Entry';
 import ComRight from 'component/ComRight';
 import RightSearch from 'component/ComRight/component/RightSearch';
@@ -13,8 +13,8 @@ import RightUser from 'component/ComRight/component/RightUser';
 //
 const PageArticle = ({ works, hotkey }) => {
   // store mobx
-  const todoList = useStoreMobx({});
-  console.log('pageindex', todoList + '');
+  // const todoList = useStoreMobx(null);
+  // console.log('pageindex', todoList);
   //
   const moreRef = useRef(null);
   const inViewPort = useInViewport(moreRef);

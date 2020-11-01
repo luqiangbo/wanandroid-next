@@ -1,4 +1,4 @@
-import { getArticleQuery } from 'fetch/index';
+import { getArticleQuery } from 'fetchServe/index';
 
 export default async (req, res) => {
   const { query } = req;

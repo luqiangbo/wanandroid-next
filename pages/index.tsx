@@ -7,7 +7,7 @@ import { useUpdateEffect, useInViewport } from 'ahooks';
 import { initializeStoreRedux } from 'store-redux';
 import { serverRenderClock } from 'store-redux/timer/action';
 import { useStoreMobx } from 'store-mobx';
-import { getIndex, getIndexEntry } from 'fetchApi/index';
+import { getIndex, getIndexEntry } from 'fetchMiddleware/index';
 import Entry from 'component/Entry';
 import Banner from 'component/Banner';
 import ComRight from 'component/ComRight';
@@ -21,9 +21,6 @@ const PageIndex = ({ banner, works, hotkey, initialReduxState }) => {
   useEffect(() => {
     dispatch(serverRenderClock());
   }, []);
-  // store mobx
-  const todoList = useStoreMobx({});
-  console.log('pageindex', todoList + '');
   //
   const moreRef = useRef(null);
   const inViewPort = useInViewport(moreRef);
@@ -68,7 +65,7 @@ const PageIndex = ({ banner, works, hotkey, initialReduxState }) => {
           </Col>
           <Col xs={0} sm={8}>
             <ComRight>
-              {JSON.stringify(initialReduxState)}
+              {/* {JSON.stringify(initialReduxState)} */}
               <RightSearch />
               <RightHotkey toProps={hotkey} />
               <RightUser />
@@ -82,7 +79,6 @@ const PageIndex = ({ banner, works, hotkey, initialReduxState }) => {
 
 export const getServerSideProps = async (context) => {
   const reduxStore = initializeStoreRedux({});
-
   //
   const [err, res] = await getIndex();
   // console.log('pageindex', err, res);

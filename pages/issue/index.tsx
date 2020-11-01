@@ -4,7 +4,7 @@ import { useObserver } from 'mobx-react';
 import { Row, Col, Pagination, Card } from 'antd';
 import { useUpdateEffect } from 'ahooks';
 //
-import { getIssueGoods, getIssueMore } from 'fetchApi/index';
+import { getIssueGoods, getIssueMore } from 'fetchMiddleware/index';
 import Entry from 'component/Entry';
 import ComRight from 'component/ComRight';
 import RightSearch from 'component/ComRight/component/RightSearch';

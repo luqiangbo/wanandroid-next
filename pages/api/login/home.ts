@@ -1,4 +1,4 @@
-import { postLogin } from 'fetch/index';
+import { postLogin } from 'fetchServe/index';
 
 export default async (req, res) => {
   const { query } = req;
