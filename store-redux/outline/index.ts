@@ -3,7 +3,7 @@ import * as types from './type';
 const initializeStore = {
   menuCurrent: ['/'],
   userInfo: {},
-  isLogin: false,
+  isLogin: null,
   menu: [
     {
       value: '/',
