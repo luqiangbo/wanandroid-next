@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 //
 import { setIsLogin, setUserInfo } from '@/store-redux/outline/action';
 import { UserContext } from '@/component/ComHeader/index';
-import { getLogin } from '@/fetchMiddleware/index';
+import { getLogin } from '@/fetchMdw/index';
 
 const Login = () => {
   const dispatch = useDispatch();

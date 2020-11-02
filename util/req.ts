@@ -122,10 +122,10 @@ export const requestServeTo = (config) => {
   );
 };
 // api 中间层 封装
-const queryMiddleware = axios.create({
+const queryMdw = axios.create({
   timeout: 10 * 1000,
 });
-queryMiddleware.interceptors.response.use(
+queryMdw.interceptors.response.use(
   (response) => {
     // console.log('util req', response);
     // 如果返回的状态码为200
@@ -141,10 +141,10 @@ queryMiddleware.interceptors.response.use(
   },
 );
 // getApiTo
-export const getMiddlewareTo = (url, params = {}) => {
+export const getMdwTo = (url, params = {}) => {
   return to(
     new Promise((resolve, reject) => {
-      queryMiddleware({
+      queryMdw({
         method: 'get',
         url,
         params,
@@ -159,9 +159,9 @@ export const getMiddlewareTo = (url, params = {}) => {
   );
 };
 // getApi
-export const getMiddleware = (url, params = {}) => {
+export const getMdw = (url, params = {}) => {
   return new Promise((resolve, reject) => {
-    queryMiddleware({
+    queryMdw({
       method: 'get',
       url,
       params,
@@ -175,10 +175,10 @@ export const getMiddleware = (url, params = {}) => {
   });
 };
 // postApiTo
-export const postMiddlewareTo = (url, params) => {
+export const postMdwTo = (url, params) => {
   return to(
     new Promise((resolve, reject) => {
-      queryMiddleware({
+      queryMdw({
         method: 'post',
         url,
         data: params,
@@ -192,10 +192,10 @@ export const postMiddlewareTo = (url, params) => {
     }),
   );
 };
-export const requestMiddlewareTo = (config) => {
+export const requestMdwTo = (config) => {
   return to(
     new Promise((resolve, reject) => {
-      queryMiddleware(config)
+      queryMdw(config)
         .then((res) => {
           resolve(res);
         })

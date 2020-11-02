@@ -1,5 +1,5 @@
 import React from 'react';
-import { getUser } from 'fetchMiddleware/index';
+import { getUser } from '@/fetchMdw/index';
 
 const User = () => {
   return (

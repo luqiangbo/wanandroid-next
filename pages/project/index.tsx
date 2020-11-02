@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Row, Col, Spin } from 'antd';
 import { useObserver } from 'mobx-react';
 //
-import { getProject } from '@/fetchMiddleware/index';
+import { getProject } from '@/fetchMdw/index';
 import ProjectLabel from '@/component/ProjectLabel';
 import ProjectList from '@/component/ProjectList';
 //

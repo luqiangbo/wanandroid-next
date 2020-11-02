@@ -4,7 +4,7 @@ import { Row, Col, Spin } from 'antd';
 import { useUpdateEffect, useInViewport } from 'ahooks';
 //
 import { useStoreMobx } from 'store-mobx';
-import { getArticle, getArticleQuery } from 'fetchMiddleware/index';
+import { getArticle, getArticleQuery } from '@/fetchMdw/index';
 import Entry from 'component/Entry';
 import ComRight from 'component/ComRight';
 import RightSearch from 'component/ComRight/component/RightSearch';

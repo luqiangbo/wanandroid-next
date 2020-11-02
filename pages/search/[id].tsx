@@ -4,7 +4,7 @@ import { Row, Col, Spin, Card } from 'antd';
 import { useUpdateEffect, useInViewport } from 'ahooks';
 
 //
-import { getSearch, getSearchMore } from 'fetchMiddleware/index';
+import { getSearch, getSearchMore } from '@/fetchMdw/index';
 import Entry from 'component/Entry';
 import ComRight from 'component/ComRight';
 import RightSearch from 'component/ComRight/component/RightSearch';

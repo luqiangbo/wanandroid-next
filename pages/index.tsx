@@ -7,7 +7,7 @@ import { useUpdateEffect, useInViewport } from 'ahooks';
 import { initializeStoreRedux } from 'store-redux';
 import { serverRenderClock } from 'store-redux/timer/action';
 import { useStoreMobx } from 'store-mobx';
-import { getIndex, getIndexEntry } from 'fetchMiddleware/index';
+import { getIndex, getIndexEntry } from '@/fetchMdw/index';
 import Entry from 'component/Entry';
 import Banner from 'component/Banner';
 import ComRight from 'component/ComRight';
