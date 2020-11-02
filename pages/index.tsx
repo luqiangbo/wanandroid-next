@@ -3,11 +3,12 @@ import { useDispatch } from 'react-redux';
 import { useLocalStore, useObserver } from 'mobx-react';
 import { Row, Col, Spin } from 'antd';
 import { useUpdateEffect, useInViewport } from 'ahooks';
+import { find, get } from 'lodash';
 //
 import { initializeStoreRedux } from 'store-redux';
 import { serverRenderClock } from 'store-redux/timer/action';
 import { useStoreMobx } from 'store-mobx';
-import { getIndex, getIndexEntry } from '@/fetchMdw/index';
+import { getIndex, getIndexEntry, getCoinMdw } from '@/fetchMdw/index';
 import Entry from 'component/Entry';
 import Banner from 'component/Banner';
 import ComRight from 'component/ComRight';
@@ -15,7 +16,7 @@ import RightSearch from 'component/ComRight/component/RightSearch';
 import RightHotkey from 'component/ComRight/component/RightHotkey';
 import RightUser from 'component/ComRight/component/RightUser';
 //
-const PageIndex = ({ banner, works, hotkey, initialReduxState }) => {
+const PageIndex = ({ banner, works, hotkey, user }) => {
   // store redux
   const dispatch = useDispatch();
   useEffect(() => {
@@ -68,7 +69,7 @@ const PageIndex = ({ banner, works, hotkey, initialReduxState }) => {
               {/* {JSON.stringify(initialReduxState)} */}
               <RightSearch />
               <RightHotkey toProps={hotkey} />
-              <RightUser />
+              <RightUser toProps={user} />
             </ComRight>
           </Col>
         </Row>
@@ -77,11 +78,25 @@ const PageIndex = ({ banner, works, hotkey, initialReduxState }) => {
   ));
 };
 
-export const getServerSideProps = async (context) => {
-  const reduxStore = initializeStoreRedux({});
+export const getServerSideProps = async (ctx) => {
+  const { headers } = ctx.req;
   //
-  const [err, res] = await getIndex();
-  // console.log('pageindex', err, res);
+  const [err, res] = await getIndex(); //
+  const [err1, res1] = await getCoinMdw({ headers }); // 积分
+  // console.log('p index', err1, res1);
+  let user = [
+    { id: 0, label: '消息中心:', value: '需登录', data: null },
+    { id: 1, label: '本站积分:', value: '需登录', data: null },
+    { id: 2, label: '积分规则:', value: '', data: null },
+    { id: 3, label: '积分排行榜:', value: '', data: null },
+    { id: 4, label: '广告位:', value: '八毛', data: null },
+  ];
+  // 积分
+  if (!res1.errorMsg) {
+    const solt = find(user, (t) => t.id === 1);
+    solt.data = res1;
+  }
+  console.log('pageindex', err, user);
   if (err) {
     return {
       props: {
@@ -96,6 +111,7 @@ export const getServerSideProps = async (context) => {
           size: 20,
           total: 9156,
         },
+        user,
       },
     };
   }
@@ -104,7 +120,7 @@ export const getServerSideProps = async (context) => {
       banner: res[0],
       works: res[1],
       hotkey: res[2],
-      initialReduxState: reduxStore.getState(),
+      user,
     },
   };
 };

@@ -32,10 +32,10 @@ export const getProject = (params) => getMdwTo(`${server}/api/project/home`, par
 // login
 export const getLogin = (params) => getMdwTo(`${server}/api/login/home`, params);
 // 个人中心
-export const getUser = ({ headers }) =>
+export const getCoinMdw = ({ headers }) =>
   requestMdwTo({
     method: 'get',
-    url: `${server}/api/user/home`,
+    url: `${server}/api/coin/home`,
     data: {},
     headers,
   });

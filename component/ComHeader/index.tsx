@@ -1,12 +1,13 @@
 import React, { useState, useContext, createContext } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useSelector, useDispatch } from 'react-redux';
-import { Menu, Affix } from 'antd';
-
+import { Menu, Affix, Avatar, Dropdown } from 'antd';
+import Cookie from 'js-cookie';
 //
 import styles from './index.module.scss';
-import { setMenuCurrent, setUserInfo } from 'store-redux/outline/action';
-import ModalLogin from './component/Login';
+import { setMenuCurrent, setUserInfo, setIsLogin } from 'store-redux/outline/action';
+import LoginModal from './component/LoginModal';
 
 interface ContextType {
   isModalLogin: boolean;
@@ -40,7 +41,23 @@ const ComHeader = () => {
     console.log('登录');
     setIsModalLogin((t) => !t);
   };
+  const onLoginOut = () => {
+    Cookie.remove('loginUserName');
+    Cookie.remove('token_pass');
+    dispatch(setIsLogin(false));
+    dispatch(setUserInfo({}));
+  };
   const onEnroll = () => {};
+  const menuss = (
+    <Menu>
+      <Menu.Item>
+        <Link href='/user' as={`/user`}>
+          个人中心
+        </Link>
+      </Menu.Item>
+      <Menu.Item onClick={onLoginOut}>退出登录</Menu.Item>
+    </Menu>
+  );
   return (
     <>
       <Affix offsetTop={top}>
@@ -54,7 +71,9 @@ const ComHeader = () => {
               </Menu>
               <div className='com-header-right'>
                 {isLogin ? (
-                  <div>{userInfo.publicName}</div>
+                  <Dropdown overlay={menuss} placement='bottomRight'>
+                    <Avatar size='large'>{userInfo.publicName}</Avatar>
+                  </Dropdown>
                 ) : (
                   <>
                     <div className='login' onClick={onLogin}>
@@ -75,7 +94,7 @@ const ComHeader = () => {
         </div>
       </Affix>
       <UserContext.Provider value={{ isModalLogin, setIsModalLogin }}>
-        <ModalLogin></ModalLogin>
+        <LoginModal></LoginModal>
       </UserContext.Provider>
     </>
   );

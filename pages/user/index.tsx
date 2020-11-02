@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { getUser } from '@/fetchMdw/index';
+import { getCoinMdw } from '@/fetchMdw/index';
 import Router, { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { isNil } from 'lodash';
@@ -30,7 +30,7 @@ const User = () => {
 export const getServerSideProps = async (ctx) => {
   const { headers } = ctx.req;
   //
-  const [err, res] = await getUser({ headers });
+  const [err, res] = await getCoinMdw({ headers });
   console.log('p user', err, res);
   if (res.errorMsg) {
     redirect(ctx, '/login');

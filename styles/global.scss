@@ -241,3 +241,33 @@ a {
     }
   }
 }
+// 个人中心
+.c-user {
+  .user-item {
+    display: flex;
+    padding: 5px 0;
+    &:hover {
+      background-color: #fcfcfc;
+      color: #007fff !important;
+    }
+    .label {
+      width: 80px;
+      text-align: right;
+      padding-right: 5px;
+    }
+    .value {
+      flex: auto;
+      cursor: pointer;
+    }
+    .value0 {
+      .text {
+        color: #f40;
+      }
+    }
+    .value1 {
+      .text {
+        color: #f40;
+      }
+    }
+  }
+}
