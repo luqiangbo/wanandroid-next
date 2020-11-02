@@ -9,7 +9,7 @@ import 'antd/dist/antd.css';
 import { useStoreRedux } from 'store-redux';
 import { useStoreMobx } from 'store-mobx';
 import 'styles/global.scss';
-import Layout from '@/component/Layout';
+import Layout from 'component/Layout';
 //
 // https://github.com/ant-design/ant-design/issues/18336
 // 同用nextjs，官网上的demo是引用的es目录的，要改成lib目录才是commonjs的形式。。
@@ -30,11 +30,15 @@ export default function App({ Component, pageProps }) {
   return (
     <Provider store={store}>
       <ProviderMobx store={storeMobx}>
-        <ConfigProvider {...globalConfig}>
-          <Layout title={pageProps.title}>
-            <Component {...pageProps} />
-          </Layout>
-        </ConfigProvider>
+        <PersistGate loading={null} persistor={persistor}>
+          {() => (
+            <ConfigProvider {...globalConfig}>
+              <Layout title={pageProps.title}>
+                <Component {...pageProps} />
+              </Layout>
+            </ConfigProvider>
+          )}
+        </PersistGate>
       </ProviderMobx>
     </Provider>
   );

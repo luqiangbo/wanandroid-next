@@ -69,3 +69,8 @@ docker run --rm \
 
 mobx-react 文档
 https://mobx-react.js.org/
+
+### issue
+
+redux-persist SSR didn`t see my meta tags
+https://github.com/vercel/next.js/issues/8240
