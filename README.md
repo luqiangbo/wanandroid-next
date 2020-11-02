@@ -74,3 +74,7 @@ https://mobx-react.js.org/
 
 redux-persist SSR didn`t see my meta tags
 https://github.com/vercel/next.js/issues/8240
+
+重定向 路由保护处理
+https://stackoverflow.com/questions/58173809/next-js-redirect-from-to-another-page
+https://github.com/vercel/next.js/discussions/10724

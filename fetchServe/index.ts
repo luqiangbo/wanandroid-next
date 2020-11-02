@@ -1,5 +1,6 @@
-import { getServeTo, getServe, postServe, postServeTo } from 'util/req';
+import { getServeTo, getServe, postServe, postServeTo, requestServeTo } from 'util/req';
 import { to } from 'util/index';
+const https = require('https');
 // 轮播
 export const getBanner = () => getServeTo('banner/json');
 // 文章列表
@@ -60,3 +61,13 @@ export const postLogin = (params) => {
   // console.log('登录', params);
   return postServeTo(`user/login`, params);
 };
+// 9 积分
+export const reqCoin = ({ headers }) =>
+  requestServeTo({
+    method: 'get',
+    url: `https://www.wanandroid.com/lg/coin/userinfo/json`,
+    data: {},
+    headers,
+    responseType: 'json',
+    httpsAgent: new https.Agent({ rejectUnauthorized: false }),
+  });
