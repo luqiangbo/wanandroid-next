@@ -4,10 +4,13 @@ import { Card, Radio, Carousel } from 'antd';
 import { find } from 'lodash';
 //
 //
-const Tags = (props) => {
+interface Props {
+  toProps: any[];
+  handlerClick: Function;
+}
+const Tags = ({ toProps, handlerClick }: Props) => {
   const router = useRouter();
   const { cid } = router.query;
-  const { toProps, handlerClick } = props;
   // console.log('c tags', cid, toProps[0].id);
   const cidDefault = cid || toProps[0].id;
   const [value, setValue] = useState(cidDefault * 1);
@@ -38,6 +41,7 @@ const Tags = (props) => {
     setValueChildren(value);
     handlerClick(value);
   };
+
   return (
     <>
       <Card className='card-p0 mb20 com-tags'>

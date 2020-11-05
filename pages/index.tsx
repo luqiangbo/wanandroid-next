@@ -67,7 +67,7 @@ const PageIndex = ({ banner, works, hotkey, user }) => {
           <Col xs={0} sm={8}>
             <ComRight>
               {/* {JSON.stringify(initialReduxState)} */}
-              <RightSearch />
+              <RightSearch toProps={''} />
               <RightHotkey toProps={hotkey} />
               <RightUser toProps={user} />
             </ComRight>
@@ -85,11 +85,10 @@ export const getServerSideProps = async (ctx) => {
   const [err1, res1] = await getCoinMdw({ headers }); // 积分
   // console.log('p index', err1, res1);
   let user = [
-    { id: 0, label: '消息中心:', value: '需登录', data: null },
-    { id: 1, label: '本站积分:', value: '需登录', data: null },
-    { id: 2, label: '积分规则:', value: '', data: null },
-    { id: 3, label: '积分排行榜:', value: '', data: null },
-    { id: 4, label: '广告位:', value: '八毛', data: null },
+    { id: 1, label: '本站积 :', value: '需登录', data: null },
+    { id: 2, label: '积分规则 :', value: '', data: null },
+    { id: 3, label: '积分排行榜 :', value: '', data: null },
+    { id: 4, label: '广告位 :', value: '八毛一个广告', data: null },
   ];
   // 积分
   if (!res1.errorMsg) {

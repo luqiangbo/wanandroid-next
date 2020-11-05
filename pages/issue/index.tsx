@@ -44,7 +44,7 @@ const PageIssue = ({ works, hotkey }) => {
             <ComRight>
               <RightSearch />
               <RightHotkey toProps={hotkey} />
-              <RightUser />
+              {/* <RightUser /> */}
             </ComRight>
           </Col>
         </Row>

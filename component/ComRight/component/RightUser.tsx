@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react';
-import { Card } from 'antd';
+import { Card, Tag } from 'antd';
 import { isNil } from 'lodash';
 import classnames from 'classnames';
 //
-const RightSearch = ({ toProps }) => {
+interface Props {
+  toProps: any[];
+}
+const RightSearch = ({ toProps }: Props) => {
   const detail = (t) => {
     if (t.id === 0) {
       return <div> 1256 </div>;
@@ -11,9 +14,9 @@ const RightSearch = ({ toProps }) => {
     if (t.id === 1) {
       return (
         <>
-          <span className='coin-count'>{t.data.coinCount}</span>
-          <span className='level'>lv{t.data.level}</span>
-          <span className='rank'>排名{t.data.rank}</span>
+          <Tag color='#f50'> {t.data.coinCount}</Tag>
+          <Tag color='#2db7f5'> Lv {t.data.level}</Tag>
+          <Tag color='#87d068'> 排名 {t.data.rank}</Tag>
         </>
       );
     }

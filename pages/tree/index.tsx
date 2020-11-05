@@ -70,7 +70,7 @@ const PageArticle = ({ works, hotkey, tags }) => {
             <ComRight>
               <RightSearch />
               <RightHotkey toProps={hotkey} />
-              <RightUser />
+              {/* <RightUser  /> */}
             </ComRight>
           </Col>
         </Row>

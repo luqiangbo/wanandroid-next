@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
 import { Card, Radio, Carousel } from 'antd';
-import { find } from 'lodash';
 import classnames from 'classnames';
 //
-const ProjectLabel = ({ toProps }) => {
+interface Props {
+  toProps: any[];
+}
+const ProjectLabel = ({ toProps }: Props) => {
   const [action, setAction] = useState(toProps[0].id);
   return (
     <>

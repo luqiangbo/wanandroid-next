@@ -10,6 +10,9 @@ import ComRight from 'component/ComRight';
 import RightSearch from 'component/ComRight/component/RightSearch';
 import RightHotkey from 'component/ComRight/component/RightHotkey';
 //
+interface Query {
+  id: string;
+}
 
 const PageSearch = ({ works, hotkey }) => {
   const router = useRouter();
@@ -69,7 +72,7 @@ const PageSearch = ({ works, hotkey }) => {
             <div>
               page:{page} hasMore:{hasMore + ''}
             </div>
-            <RightSearch toProps={id || ''} />
+            <RightSearch toProps={id} />
             <RightHotkey toProps={hotkey} />
           </ComRight>
         </Col>

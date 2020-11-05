@@ -31,7 +31,7 @@ export const getServerSideProps = async (ctx) => {
   const { headers } = ctx.req;
   //
   const [err, res] = await getCoinMdw({ headers });
-  console.log('p user', err, res);
+  // console.log('p user', err, res);
   if (res.errorMsg) {
     redirect(ctx, '/login');
   }

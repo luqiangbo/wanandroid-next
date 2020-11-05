@@ -3,8 +3,10 @@ import { Card } from 'antd';
 //
 import styles from './index.module.scss';
 //
-const ComHeader = (props) => {
-  const { toProps } = props;
+interface Props {
+  toProps: any;
+}
+const ComHeader = ({ toProps }: Props) => {
   return (
     <>
       <Card className='card-p0'>

@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Row, Col, Spin } from 'antd';
 import { useObserver } from 'mobx-react';
 //
 import { getProject } from '@/fetchMdw/index';
@@ -19,9 +18,7 @@ const PageArticle = ({ label, project }) => {
 
 export const getServerSideProps = async ({ query }) => {
   //
-  // console.log('p project', query);
   const [err, res] = await getProject({ page: 1, cid: 294 });
-  // console.log('p project', err, res);
   if (err) {
     return {
       props: {

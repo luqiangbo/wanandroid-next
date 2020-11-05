@@ -2,8 +2,10 @@ import React from 'react';
 import Link from 'next/link';
 import { Card, Tag } from 'antd';
 //
-//
-const RightHotkey = ({ toProps }) => {
+interface Props {
+  toProps: any[];
+}
+const RightHotkey = ({ toProps }: Props) => {
   return (
     <>
       <Card size='small' title='搜索热词' className='mb20 card-p10'>

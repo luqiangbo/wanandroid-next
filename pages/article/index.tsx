@@ -11,7 +11,23 @@ import RightSearch from 'component/ComRight/component/RightSearch';
 import RightHotkey from 'component/ComRight/component/RightHotkey';
 import RightUser from 'component/ComRight/component/RightUser';
 //
-const PageArticle = ({ works, hotkey }) => {
+
+interface Works {
+  curPage: number;
+  datas: number[];
+  offset: number;
+  over: boolean;
+  pageCount: number;
+  size: number;
+  total: number;
+}
+
+interface Props {
+  works: Works;
+  hotkey: any[];
+}
+
+const PageArticle = ({ works, hotkey }: Props) => {
   // store mobx
   // const todoList = useStoreMobx(null);
   // console.log('pageindex', todoList);
@@ -60,7 +76,7 @@ const PageArticle = ({ works, hotkey }) => {
             <ComRight>
               <RightSearch />
               <RightHotkey toProps={hotkey} />
-              <RightUser />
+              {/* <RightUser /> */}
             </ComRight>
           </Col>
         </Row>

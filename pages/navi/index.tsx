@@ -4,9 +4,11 @@ const { Link } = Anchor;
 
 //
 import { getNavi } from '@/fetchMdw/index';
+interface Props {
+  navi: any[];
+}
 
-const PageNavi = (props) => {
-  const { navi } = props;
+const PageNavi = ({ navi }: Props) => {
   const [top, setTop] = useState(80);
 
   return (

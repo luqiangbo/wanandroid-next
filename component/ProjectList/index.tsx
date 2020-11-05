@@ -9,7 +9,11 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 dayjs.locale('zh-cn');
 dayjs.extend(relativeTime);
 //
-
+interface Props {
+  datas: any[];
+  curPage: number;
+  total: number;
+}
 const ProjectList = ({ toProps }) => {
   const router = useRouter();
   const { page } = router.query;
