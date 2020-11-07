@@ -233,7 +233,8 @@ a {
     }
   }
 }
-.c-modal-login {
+// 登录组件
+.c-login {
   .submit-button {
     .ant-form-item-control-input-content {
       display: flex;
@@ -241,6 +242,7 @@ a {
     }
   }
 }
+
 // 个人中心
 .c-user {
   .user-item {
@@ -268,5 +270,12 @@ a {
         color: #f40;
       }
     }
+  }
+}
+//登录页面
+.page-login {
+  .ant-card {
+    width: 400px;
+    margin: 0 auto;
   }
 }

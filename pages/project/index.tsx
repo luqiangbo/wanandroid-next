@@ -2,15 +2,15 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useObserver } from 'mobx-react';
 //
 import { getProject } from '@/fetchMdw/index';
-import ProjectLabel from '@/component/ProjectLabel';
-import ProjectList from '@/component/ProjectList';
+import CPPLabel from '@/components/Pages/Project/Label';
+import CPPjectList from '@/components/Pages/Project/List';
 //
 const PageArticle = ({ label, project }) => {
   return useObserver(() => (
     <>
       <div className='container'>
-        <ProjectLabel toProps={label}></ProjectLabel>
-        <ProjectList toProps={project}></ProjectList>
+        <CPPLabel toProps={label}></CPPLabel>
+        <CPPjectList toProps={project}></CPPjectList>
       </div>
     </>
   ));

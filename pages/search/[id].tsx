@@ -5,10 +5,10 @@ import { useUpdateEffect, useInViewport } from 'ahooks';
 
 //
 import { getSearch, getSearchMore } from '@/fetchMdw/index';
-import Entry from 'component/Entry';
-import ComRight from 'component/ComRight';
-import RightSearch from 'component/ComRight/component/RightSearch';
-import RightHotkey from 'component/ComRight/component/RightHotkey';
+import CEntry from 'components/Entry';
+import CRight from 'components/Right';
+import CRCSearch from 'components/Right/components/Search';
+import CRCHotkey from 'components/Right/components/Hotkey';
 //
 interface Query {
   id: string;
@@ -63,18 +63,18 @@ const PageSearch = ({ works, hotkey }) => {
         <Col xs={24} sm={16} className='mb20'>
           <Card className='mb20 card-p10'>搜索关键词 : {id}</Card>
           <Spin spinning={loadingSearch}>
-            <Entry toProps={worksMore} />
+            <CEntry toProps={worksMore} />
             <div ref={moreRef}></div>
           </Spin>
         </Col>
         <Col xs={0} sm={8}>
-          <ComRight>
+          <CRight>
             <div>
               page:{page} hasMore:{hasMore + ''}
             </div>
-            <RightSearch toProps={id} />
-            <RightHotkey toProps={hotkey} />
-          </ComRight>
+            <CRCSearch toProps={id} />
+            <CRCHotkey toProps={hotkey} />
+          </CRight>
         </Col>
       </Row>
     </div>

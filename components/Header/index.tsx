@@ -7,7 +7,7 @@ import Cookie from 'js-cookie';
 //
 import styles from './index.module.scss';
 import { setMenuCurrent, setUserInfo, setIsLogin } from 'store-redux/outline/action';
-import LoginModal from './component/LoginModal';
+import CLoginModal from './components/LoginModal';
 
 interface ContextType {
   isModalLogin: boolean;
@@ -38,7 +38,6 @@ const ComHeader = () => {
   };
 
   const onLogin = () => {
-    console.log('登录');
     setIsModalLogin((t) => !t);
   };
   const onLoginOut = () => {
@@ -46,6 +45,7 @@ const ComHeader = () => {
     Cookie.remove('token_pass');
     dispatch(setIsLogin(false));
     dispatch(setUserInfo({}));
+    router.push('/');
   };
   const onEnroll = () => {};
   const menuss = (
@@ -72,7 +72,7 @@ const ComHeader = () => {
               <div className='com-header-right'>
                 {isLogin ? (
                   <Dropdown overlay={menuss} placement='bottomRight'>
-                    <Avatar size='large'>{userInfo.publicName}</Avatar>
+                    <Avatar size='large'>{userInfo && userInfo.publicName}</Avatar>
                   </Dropdown>
                 ) : (
                   <>
@@ -94,7 +94,7 @@ const ComHeader = () => {
         </div>
       </Affix>
       <UserContext.Provider value={{ isModalLogin, setIsModalLogin }}>
-        <LoginModal></LoginModal>
+        <CLoginModal></CLoginModal>
       </UserContext.Provider>
     </>
   );

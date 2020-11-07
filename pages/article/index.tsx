@@ -5,11 +5,11 @@ import { useUpdateEffect, useInViewport } from 'ahooks';
 //
 import { useStoreMobx } from 'store-mobx';
 import { getArticle, getArticleQuery } from '@/fetchMdw/index';
-import Entry from 'component/Entry';
-import ComRight from 'component/ComRight';
-import RightSearch from 'component/ComRight/component/RightSearch';
-import RightHotkey from 'component/ComRight/component/RightHotkey';
-import RightUser from 'component/ComRight/component/RightUser';
+import CEntry from 'components/Entry';
+import CRight from 'components/Right';
+import CRCSearch from 'components/Right/components/Search';
+import CRCHotkey from 'components/Right/components/Hotkey';
+import CRCUser from 'components/Right/components/User';
 //
 
 interface Works {
@@ -68,16 +68,16 @@ const PageArticle = ({ works, hotkey }: Props) => {
         <Row>
           <Col xs={24} sm={16} className='mb20'>
             <Spin spinning={loadingEntry}>
-              <Entry toProps={worksMore} />
+              <CEntry toProps={worksMore} />
               <div ref={moreRef}></div>
             </Spin>
           </Col>
           <Col xs={0} sm={8}>
-            <ComRight>
-              <RightSearch />
-              <RightHotkey toProps={hotkey} />
+            <CRight>
+              <CRCSearch />
+              <CRCHotkey toProps={hotkey} />
               {/* <RightUser /> */}
-            </ComRight>
+            </CRight>
           </Col>
         </Row>
       </div>

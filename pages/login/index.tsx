@@ -1,10 +1,18 @@
 import React from 'react';
+import { Card } from 'antd';
+//
+import CLogin from '@/components/Login';
 
-const Login = () => {
+//
+const PageLogin = () => {
   return (
     <>
-      <div>登录注册</div>
+      <div className='container page-login'>
+        <Card>
+          <CLogin></CLogin>
+        </Card>
+      </div>
     </>
   );
 };
-export default Login;
+export default PageLogin;

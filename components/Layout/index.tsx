@@ -2,8 +2,8 @@ import React from 'react';
 import Head from 'next/head';
 import { BackTop } from 'antd';
 //
-import ComHeader from '../ComHeader';
-import ComFooter from '../ComFooter';
+import CHeader from '../Header';
+import CFooter from '../Footer';
 //
 const Layout = ({ children, title = '我就是标题' }) => {
   return (
@@ -16,9 +16,9 @@ const Layout = ({ children, title = '我就是标题' }) => {
         <meta name='renderer' content='webkit' />
         <link rel='icon' href='/static/favicon.ico' type='image/x-icon' />
       </Head>
-      <ComHeader />
+      <CHeader />
       {children}
-      <ComFooter />
+      <CFooter />
       <BackTop />
     </>
   );

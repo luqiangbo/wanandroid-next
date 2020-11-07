@@ -9,12 +9,12 @@ import { initializeStoreRedux } from 'store-redux';
 import { serverRenderClock } from 'store-redux/timer/action';
 import { useStoreMobx } from 'store-mobx';
 import { getIndex, getIndexEntry, getCoinMdw } from '@/fetchMdw/index';
-import Entry from 'component/Entry';
-import Banner from 'component/Banner';
-import ComRight from 'component/ComRight';
-import RightSearch from 'component/ComRight/component/RightSearch';
-import RightHotkey from 'component/ComRight/component/RightHotkey';
-import RightUser from 'component/ComRight/component/RightUser';
+import CEntry from 'components/Entry';
+import CBanner from 'components/Banner';
+import CRight from 'components/Right';
+import CRCSearch from 'components/Right/components/Search';
+import CRCHotkey from 'components/Right/components/Hotkey';
+import CRCUser from 'components/Right/components/User';
 //
 const PageIndex = ({ banner, works, hotkey, user }) => {
   // store redux
@@ -58,19 +58,19 @@ const PageIndex = ({ banner, works, hotkey, user }) => {
       <div className='container'>
         <Row>
           <Col xs={24} sm={16} className='mb20'>
-            <Banner toProps={banner} />
+            <CBanner toProps={banner} />
             <Spin spinning={loadingEntry}>
-              <Entry toProps={worksMore} />
+              <CEntry toProps={worksMore} />
               <div ref={moreRef}></div>
             </Spin>
           </Col>
           <Col xs={0} sm={8}>
-            <ComRight>
+            <CRight>
               {/* {JSON.stringify(initialReduxState)} */}
-              <RightSearch toProps={''} />
-              <RightHotkey toProps={hotkey} />
-              <RightUser toProps={user} />
-            </ComRight>
+              <CRCSearch toProps={''} />
+              <CRCHotkey toProps={hotkey} />
+              <CRCUser toProps={user} />
+            </CRight>
           </Col>
         </Row>
       </div>

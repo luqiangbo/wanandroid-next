@@ -5,11 +5,11 @@ import { Row, Col, Pagination, Card } from 'antd';
 import { useUpdateEffect } from 'ahooks';
 //
 import { getIssueGoods, getIssueMore } from '@/fetchMdw/index';
-import Entry from 'component/Entry';
-import ComRight from 'component/ComRight';
-import RightSearch from 'component/ComRight/component/RightSearch';
-import RightHotkey from 'component/ComRight/component/RightHotkey';
-import RightUser from 'component/ComRight/component/RightUser';
+import Entry from 'components/Entry';
+import CRight from '@/components/Right';
+import CRCSearch from '@/components/Right/components/Search';
+import CRCHotkey from '@/components/Right/components/Hotkey';
+import CRCUser from '@/components/Right/components/User';
 //
 const PageIssue = ({ works, hotkey }) => {
   const router = useRouter();
@@ -41,11 +41,11 @@ const PageIssue = ({ works, hotkey }) => {
             </Card>
           </Col>
           <Col xs={0} sm={8}>
-            <ComRight>
-              <RightSearch />
-              <RightHotkey toProps={hotkey} />
+            <CRight>
+              <CRCSearch />
+              <CRCHotkey toProps={hotkey} />
               {/* <RightUser /> */}
-            </ComRight>
+            </CRight>
           </Col>
         </Row>
       </div>
