@@ -57,10 +57,9 @@ export const getProject = (params) => {
   return getServeTo(`project/list/${page}/json?cid=${cid}`);
 };
 // 5.1 登录
-export const postLogin = (params) => {
-  // console.log('登录', params);
-  return postServeTo(`user/login`, params);
-};
+export const postLogin = (params) => postServeTo(`user/login`, params);
+// 5.2 注册
+export const postRegister = (params) => postServeTo(`user/register`, params);
 // 9 积分
 export const reqCoin = ({ headers }) =>
   requestServeTo({

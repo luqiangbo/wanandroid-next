@@ -8,20 +8,27 @@ import Cookie from 'js-cookie';
 import styles from './index.module.scss';
 import { setMenuCurrent, setUserInfo, setIsLogin } from 'store-redux/outline/action';
 import CLoginModal from './components/LoginModal';
+import CRegisterModal from './components/RegisterModal';
 
 interface ContextType {
   isModalLogin: boolean;
   setIsModalLogin: Function;
+  isModalRegister: boolean;
+  setIsModalRegister: Function;
 }
 export const UserContext = createContext<ContextType>({
   isModalLogin: false,
   setIsModalLogin: () => {},
+  isModalRegister: false,
+  setIsModalRegister: () => {},
 });
+
 //
 const ComHeader = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const [isModalLogin, setIsModalLogin] = useState(false);
+  const [isModalRegister, setIsModalRegister] = useState(false);
   //
 
   const [top, setTop] = useState(0);
@@ -47,7 +54,9 @@ const ComHeader = () => {
     dispatch(setUserInfo({}));
     router.push('/');
   };
-  const onEnroll = () => {};
+  const onRegister = () => {
+    setIsModalRegister((t) => !t);
+  };
   const menuss = (
     <Menu>
       <Menu.Item>
@@ -80,9 +89,9 @@ const ComHeader = () => {
                       登录
                     </div>
                     <div
-                      className='enroll'
+                      className='register cp'
                       onClick={() => {
-                        onEnroll();
+                        onRegister();
                       }}>
                       注册
                     </div>
@@ -93,8 +102,9 @@ const ComHeader = () => {
           </div>
         </div>
       </Affix>
-      <UserContext.Provider value={{ isModalLogin, setIsModalLogin }}>
+      <UserContext.Provider value={{ isModalLogin, setIsModalLogin, isModalRegister, setIsModalRegister }}>
         <CLoginModal></CLoginModal>
+        <CRegisterModal></CRegisterModal>
       </UserContext.Provider>
     </>
   );

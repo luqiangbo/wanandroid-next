@@ -31,6 +31,8 @@ export const getTree = (params) => getMdwTo(`${server}/api/tree/home`, params);
 export const getProject = (params) => getMdwTo(`${server}/api/project/home`, params);
 // login
 export const getLogin = (params) => getMdwTo(`${server}/api/login/home`, params);
+// 注册
+export const getRegister = (params) => getMdwTo(`${server}/api/login/register`, params);
 // 个人中心
 export const getCoinMdw = ({ headers }) =>
   requestMdwTo({
