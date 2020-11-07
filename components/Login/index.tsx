@@ -11,6 +11,7 @@ interface Props {
 //
 const Login = ({ onCallBack }: Props) => {
   const router = useRouter();
+  const { pathname } = router;
   const dispatch = useDispatch();
   const rulesUsername = [{ required: true, message: '请输入你的名字' }];
   const rulesPassword = [{ required: true, message: '请输入你的密码' }];
@@ -25,7 +26,9 @@ const Login = ({ onCallBack }: Props) => {
     dispatch(setUserInfo(res));
     onCallBack && onCallBack();
     message.success('登录成功');
-    router.push('/');
+    if (pathname === '/login') {
+      router.push('/');
+    }
   };
   // 失败
   const onFinishFailed = (errorInfo) => {

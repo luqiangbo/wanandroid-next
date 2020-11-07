@@ -17,3 +17,14 @@ export const getContentHeight = () => {
 export const getToBottom = () => {
   return getContentHeight() - getScrollTop() - getViewHeight();
 };
+// 重定向
+export const redirect = (Router, { req, res }, path) => {
+  // 如果包含 req 信息则表示代码运行在服务端
+  if (req) {
+    res.writeHead(302, { Location: path });
+    res.end();
+  } else {
+    // 客户端跳转方式
+    Router.push(path);
+  }
+};

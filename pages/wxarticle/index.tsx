@@ -7,4 +7,11 @@ const PageWxarticle = () => {
     </>
   );
 };
+
+export const getStaticProps = async () => {
+  return {
+    props: {},
+  };
+};
+
 export default PageWxarticle;

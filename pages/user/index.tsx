@@ -4,6 +4,9 @@ import Router, { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { isNil } from 'lodash';
 import { useUpdateEffect, useInViewport } from 'ahooks';
+//
+import { redirect } from '@/util';
+//
 
 const User = () => {
   const router = useRouter();
@@ -33,24 +36,13 @@ export const getServerSideProps = async (ctx) => {
   const [err, res] = await getCoinMdw({ headers });
   // console.log('p user', err, res);
   if (res.errorMsg) {
-    redirect(ctx, '/login');
+    redirect(Router, ctx, '/login');
   }
   return {
     props: {
       name: 'hahs',
     },
   };
-};
-// 重定向
-const redirect = ({ req, res }, path) => {
-  // 如果包含 req 信息则表示代码运行在服务端
-  if (req) {
-    res.writeHead(302, { Location: path });
-    res.end();
-  } else {
-    // 客户端跳转方式
-    Router.push(path);
-  }
 };
 
 export default User;
