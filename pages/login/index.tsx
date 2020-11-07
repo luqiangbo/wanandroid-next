@@ -1,17 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Router from 'next/router';
-import { Card } from 'antd';
+import { Card, Button } from 'antd';
 import { trim } from 'lodash';
 //
 import CLogin from '@/components/Login';
+import CRegister from '@/components/Register';
 import { redirect } from '@/util';
 //
 const PageLogin = () => {
+  const [isViewLog, setIsViewLog] = useState(true);
   return (
     <>
       <div className='container page-login'>
         <Card>
-          <CLogin></CLogin>
+          {isViewLog ? <CLogin></CLogin> : <CRegister></CRegister>}
+          <div className='flex-jc-d'>
+            <Button
+              type='link'
+              onClick={() => {
+                setIsViewLog((x) => !x);
+              }}>
+              {isViewLog ? '注册' : '登录'}
+            </Button>
+          </div>
         </Card>
       </div>
     </>
