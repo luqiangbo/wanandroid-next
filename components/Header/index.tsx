@@ -81,7 +81,9 @@ const ComHeader = () => {
               <div className='com-header-right'>
                 {isLogin ? (
                   <Dropdown overlay={menuss} placement='bottomRight'>
-                    <Avatar size='large'>{userInfo && userInfo.publicName}</Avatar>
+                    <Avatar size='large' style={{ backgroundColor: '#303030' }}>
+                      {userInfo && userInfo.publicName}
+                    </Avatar>
                   </Dropdown>
                 ) : (
                   <>
