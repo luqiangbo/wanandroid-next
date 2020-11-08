@@ -28,6 +28,8 @@ const Login = ({ onCallBack }: Props) => {
     message.success('登录成功');
     if (pathname === '/login') {
       router.push('/');
+    } else {
+      router.push(pathname);
     }
   };
   // 失败
