@@ -91,7 +91,7 @@ export const getServerSideProps = async (ctx) => {
     { id: 4, label: '广告位 :', value: '八毛一个广告', data: null },
   ];
   // 积分
-  if (!res1.errorMsg) {
+  if (get(res1, 'errorMsg', false)) {
     const solt = find(user, (t) => t.id === 1);
     solt.data = res1;
   }
