@@ -7,6 +7,14 @@
 
 ```
 docker run --name web01 -p 49169:3000 -d caniuse/web:0.0.1
+docker build
+```
+
+localhost
+
+```
+docker build -t local_next .
+docker run  -d --name local_next01 -p 43000:3000 -d local_next
 ```
 
 ### 每小时更新一次
