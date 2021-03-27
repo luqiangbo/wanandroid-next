@@ -6,8 +6,8 @@ WORKDIR /usr/src/app
 
 # Installing dependencies
 COPY package*.json /usr/src/app/
-RUN npm install -g cnpm --registry=https://registry.npm.taobao.org
-RUN cnpm i
+# RUN npm install -g cnpm --registry=https://registry.npm.taobao.org
+RUN npm i
 
 # Copying source files
 COPY . /usr/src/app
