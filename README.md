@@ -8,7 +8,7 @@
 
 Github: [传送门](https://github.com/luqiangbo/web)
 
-演示地址: [传送门](https://next.commok.com/)
+演示地址: [传送门](https://next.cooog.com/)
 
 next 官网: [Nextjs.cn](https://nextjs.cn/)
 
