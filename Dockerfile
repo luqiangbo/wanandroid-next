@@ -1,4 +1,4 @@
-FROM node:15-alpine
+FROM node:14.16.0-buster-slim
 
 ENV PORT 3000
 
