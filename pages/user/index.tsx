@@ -11,8 +11,8 @@ import { redirect } from '@/util';
 const User = () => {
   const router = useRouter();
   const { pathname } = router;
-  const isLogin = useSelector((state) => state.outline.isLogin);
-  console.log('isLoginss', isLogin);
+  const isLogin = false;
+  // console.log('isLoginss', isLogin);
 
   // useEffect(() => {
   //   if (!isNil(isLogin)) {

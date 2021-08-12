@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { useSelector, useDispatch } from 'react-redux';
 import { Menu, Affix, Avatar, Dropdown } from 'antd';
 import Cookie from 'js-cookie';
+import { get } from 'lodash';
 //
 import styles from './index.module.scss';
 import { setMenuCurrent, setUserInfo, setIsLogin } from 'store-redux/outline/action';
@@ -32,10 +33,35 @@ const ComHeader = () => {
   //
 
   const [top, setTop] = useState(0);
-  const menuCurrent = useSelector((state) => state.outline.menuCurrent);
-  const menu = useSelector((state) => state.outline.menu);
-  const isLogin = useSelector((state) => state.outline.isLogin);
-  const userInfo = useSelector((state) => state.outline.userInfo);
+  const menuCurrent = ['/'];
+  const userInfo = {};
+  const isLogin = false;
+  const menu = [
+    {
+      value: '/',
+      label: '首页',
+    },
+    {
+      value: '/article',
+      label: '广场',
+    },
+    {
+      value: '/navi',
+      label: '导航',
+    },
+    {
+      value: '/issue',
+      label: '问答',
+    },
+    {
+      value: '/tree',
+      label: '体系',
+    },
+    {
+      value: '/project',
+      label: '项目',
+    },
+  ];
   // console.log('redux com header', menuCurrent, menu);
   const onMenu = (e) => {
     // console.log('com header', e);
@@ -82,7 +108,7 @@ const ComHeader = () => {
                 {isLogin ? (
                   <Dropdown overlay={menuss} placement='bottomRight'>
                     <Avatar size='large' style={{ backgroundColor: '#303030' }}>
-                      {userInfo && userInfo.publicName}
+                      {get(userInfo, 'publicName', '名字')}
                     </Avatar>
                   </Dropdown>
                 ) : (
